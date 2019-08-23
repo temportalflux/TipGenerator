@@ -1,5 +1,26 @@
 const Discord = require('discord.js');
 const secrets = require('./secret.json');
+const commands = require('./commands/index.js');
+const matcher = require('./commands/matcher.js');
+
+function parseArguments(argumentString)
+{
+	let arguments = [];
+	const matchStrParam = argumentString.split(new RegExp('(".*?")', 'g'));
+	for (param of matchStrParam)
+	{
+		const stringMatch = param.match('"(.*)"');
+		if (stringMatch != null)
+		{
+			arguments.push(stringMatch[1]);
+		}
+		else
+		{
+			arguments = arguments.concat(param.trim().split(' '));
+		}
+	}
+	return arguments;
+}
 
 const client = new Discord.Client();
 
@@ -16,17 +37,12 @@ client.on('message', msg => {
 	const match = msg.content.match(new RegExp('!dndtip (.+)'));
 	if (match !== null)
 	{
-		const parameters = match[1].split(' ');
-		switch (parameters[0])
+		const parameters = parseArguments(match[1]);
+		console.log(parameters);
+		const result = matcher(commands, parameters);
+		if (result !== null)
 		{
-			case 'give':
-				console.log('!dndtip', 'give', parameters.slice(1));
-				break;
-			case 'submit':
-				console.log('!dndtip', 'submit', parameters.slice(1));
-				break;
-			default:
-				break;
+			result.func(result.args, client, msg);
 		}
 	}
 });

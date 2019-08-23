@@ -11,7 +11,7 @@
 		"open": "^6.0.0"
 	},
 	"scripts": {
-		"run": "npx nodemon --inspect index.js",
+		"start": "npx nodemon --inspect index.js",
 		"opentools": "node openUrl.js \"chrome://inspect/\""
 	},
 	"author": "temportalflux",
