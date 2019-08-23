@@ -1,4 +1,4 @@
-module.exports = (args, client, msg) => {
+module.exports = (args, bot, msg) => {
 	if (args.length <= 0)
 	{
 		console.log("You did not specify a tip to be added");

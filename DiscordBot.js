@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const commands = require('./commands/index.js');
 const matcher = require('./commands/matcher.js');
-const SaveFile = require('./SaveFile.js');
+const Tips = require('./Tips.js');
 
 class DiscordBot
 {
@@ -12,17 +12,13 @@ class DiscordBot
 		this.client = new Discord.Client();
 		this.onClientCreated();
 
-		this.db = {
-			'tips': new SaveFile('./tips.json'),
-		};
+		this.tips = new Tips('./tips.json');
 		this.loadDatabase();
 	}
 
 	async loadDatabase()
 	{
-		this.db.forEach((value, key) => {
-			value.load();
-		});
+		await this.tips.load()
 	}
 
 	onClientCreated()
@@ -65,12 +61,10 @@ class DiscordBot
 		const match = msg.content.match(new RegExp('!dndtip (.+)'));
 		if (match !== null)
 		{
-			const parameters = this.parseArguments(match[1]);
-			console.log(parameters);
-			const result = matcher(commands, parameters);
+			const result = matcher(commands, this.parseArguments(match[1]));
 			if (result !== null)
 			{
-				result.func(result.args, this.client, msg);
+				result.func(result.args, this, msg);
 			}
 		}
 	}
