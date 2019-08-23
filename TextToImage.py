@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 
+# https://stackoverflow.com/questions/10640114/overlay-two-same-sized-images-in-python
+
 # Create a black image
 img = np.zeros((512,512,3), np.uint8)
 
