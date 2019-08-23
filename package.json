@@ -1,0 +1,20 @@
+{
+	"name": "tipgenerator",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"dependencies": {
+		"discord.js": "^11.5.1",
+		"nodemon": "^1.19.1",
+		"taffy": "^2.6.2"
+	},
+	"devDependencies": {
+		"open": "^6.0.0"
+	},
+	"scripts": {
+		"start": "npx nodemon --inspect index.js",
+		"opentools": "node openUrl.js \"chrome://inspect/\""
+	},
+	"author": "temportalflux",
+	"license": "ISC"
+}
