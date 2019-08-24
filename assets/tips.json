@@ -1,0 +1,13 @@
+{
+  "pending": [
+    "You can use an action to roll Perception to learn about a creature's appearance and potential attacks.",
+    "You can use an action to roll Insight to gain information about a creature's possible resistances and vulnerabilities.",
+    "You can use an action to roll Arcana to discover more about elemental creatures, creatures of pure magic, arcane creations, and creatures of other planes.",
+    "You can use an action to roll History to learn about creatures that play prominent roles in history like goblins, kobolds, and most other humanoid races.",
+    "You can use an action to roll Nature to understand a creature's tied directly to nature like animals, druidic creations, and guardians of nature.",
+    "You can use an action to roll Religion to gain information about creatures of religious nature (Servants of deities, undead, holy and unholy beings, etc)."
+  ],
+  "approved": [
+    "To push someone, make an Athletics check contested by a target's Athletics or Acrobatics check."
+  ]
+}
