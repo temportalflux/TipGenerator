@@ -145,8 +145,6 @@ function drawText(ctx, canvas, canvasMargin, fontSize, posX, posY, txtArray)
 {
 	let longestText = txtArray.reduce((accum, line) => line.length > accum.length ? line : accum, "");
 
-	ctx.font = `${Math.max(fontSize, 10)}px ${'DnD'}`;
-
 	const spaceBetweenLines = fontSize * 0.1;
 	const textTotalHeight = txtArray.length * fontSize + (txtArray.length - 1) * spaceBetweenLines;
 	posY -= textTotalHeight;
@@ -174,6 +172,8 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 	const canvas = createCanvas(tipBackground.width, tipBackground.height);
 	const ctx = canvas.getContext('2d');
 
+	console.log(tipBackground.width, tipBackground.height, canvas.width, canvas.height);
+
 	const canvasMargin = canvas.width * 0.03;
 
 	// Draw the background
@@ -190,7 +190,8 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 	
 	// Draw LOADING...
 	{
-		const fontSize = canvas.height * 0.08;
+		const fontSize = canvas.width * 0.025;
+		ctx.font = `${Math.max(fontSize, 10)}px ${'DnD'}`;
 		const posX = canvasMargin;
 		const posY = canvasMargin + fontSize * 0.8;
 		//ctx.font = `${Math.max(fontSize, 10)}px ${'DnD'}`;
@@ -200,9 +201,10 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 
 	// Draw tip
 	{
-		const fontSize = canvas.height * 0.1;
+		const fontSize = canvas.width * 0.05;
+		ctx.font = `${Math.max(fontSize, 10)}px ${'DnD'}`;
 		const posX = canvasMargin;
-		let txtArray = fragmentText(ctx, tipText, dndlogoPosX - (posX * 5));
+		let txtArray = fragmentText(ctx, tipText, dndlogoPosX - canvasMargin);
 		drawText(ctx, canvas, canvasMargin, fontSize, posX, canvas.height - canvasMargin, txtArray);
 	}
 
