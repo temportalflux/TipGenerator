@@ -3,21 +3,19 @@ const fs = require('fs');
 const request = require('request');
 const { promisify } = require('util');
 const path = require('path');
+const rimraf = require('rimraf');
 
-const requestHead = promisify(request.head);
-const rmdir = promisify(require('rimraf'));
+const rmdir = (path) => new Promise((resolve, reject) => {
+	rimraf(path, () => { resolve(); });
+});
 const mkdir = promisify(fs.mkdir);
-
-async function download(uri, filepath)
-{
-}
 
 class BackgroundsRepo extends AssetRepo
 {
 
-	constructor(filepath, directory)
+	constructor(filepath, remoteSource, directory)
 	{
-		super(filepath);
+		super(filepath, remoteSource);
 		this.directory = directory;
 	}
 
@@ -30,7 +28,22 @@ class BackgroundsRepo extends AssetRepo
 	{
 		try
 		{
-			let stream = await request(entry.url).pipe(fs.createWriteStream(this.getPathForEntry(entry.name)));
+			let stream = await request(entry.url).pipe(fs.createWriteStream(this.getPathForEntry(entry)));
+		}
+		catch (e)
+		{
+			console.error(e);
+		}
+	}
+
+	async wipe()
+	{
+		try
+		{
+			if (await this.exists(this.directory))
+			{
+				await rmdir(this.directory);
+			}
 		}
 		catch (e)
 		{
@@ -42,9 +55,8 @@ class BackgroundsRepo extends AssetRepo
 	{
 		try
 		{
-			await rmdir(this.directory);
 			await mkdir(this.directory);
-			for (let entry of this.getApprovedList())
+			for (const entry of this.getApprovedList())
 			{
 				await this.downloadEntry(entry);
 			}

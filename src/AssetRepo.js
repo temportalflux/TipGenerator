@@ -4,9 +4,9 @@ const lodash = require('lodash');
 class AssetRepo extends SaveFile
 {
 	
-	constructor(filepath)
+	constructor(filepath, remoteSource)
 	{
-		super(filepath);
+		super(filepath, remoteSource);
 	}
 
 	getDefaultData()
@@ -16,6 +16,10 @@ class AssetRepo extends SaveFile
 			approved: [],
 			usedRecently: [],
 		};
+	}
+
+	async wipe()
+	{
 	}
 
 	async clone()
@@ -143,16 +147,16 @@ class AssetRepo extends SaveFile
 			return undefined;
 		}
 		const usedRecently = this.getUsedRecentlyList();
-		let available = lodash.difference(approved, usedRecently);
+		let available = approved.reduce((accum, entry, i) => !usedRecently.includes(i) ? accum.concat(i) : accum, []);
 		if (available.length <= 0)
 		{
-			available = approved;
+			available = approved.map((entry, i) => i);
 			this.clearUsedRecently();
 		}
-		const nextEntry = available[Math.floor(Math.random() * available.length)];
-		this.addUsedRecently(nextEntry);
+		const nextEntryIndex = available[Math.floor(Math.random() * available.length)];
+		this.addUsedRecently(nextEntryIndex);
 		this.save();
-		return nextEntry;
+		return approved[nextEntryIndex];
 	}
 
 }

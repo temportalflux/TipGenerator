@@ -9,4 +9,5 @@ module.exports = {
 	"clone": (arguments) => { return { 'func': require('./clone.js'), 'args': arguments.slice(1) }; },
 	"refresh": (arguments) => { return { 'func': require('./refresh.js'), 'args': arguments.slice(1) }; },
 	"clearUsed": (arguments) => { return { 'func': require('./clearUsed.js'), 'args': arguments.slice(1) }; },
+	"wipe": (arguments) => { return { 'func': require('./wipe.js'), 'args': arguments.slice(1) }; },
 };

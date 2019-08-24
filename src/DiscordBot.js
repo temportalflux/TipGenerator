@@ -15,8 +15,15 @@ class DiscordBot
 		this.client = new Discord.Client();
 		this.onClientCreated();
 
-		this.tips = new AssetRepo('./assets/tips.json');
-		this.backgrounds = new BackgroundsRepo('./assets/backgrounds.json', './assets/Backgrounds');
+		this.tips = new AssetRepo(
+			'./assets/tips.json',
+			'https://raw.githubusercontent.com/temportalflux/TipGenerator/master/assets/tips.json'
+		);
+		this.backgrounds = new BackgroundsRepo(
+			'./assets/backgrounds.json',
+			'https://raw.githubusercontent.com/temportalflux/TipGenerator/master/assets/backgrounds.json',
+			'./assets/Backgrounds'
+		);
 		this.loadDatabase();
 	}
 
@@ -24,6 +31,12 @@ class DiscordBot
 	{
 		await this.tips.load();
 		await this.backgrounds.load();
+	}
+
+	async wipe()
+	{
+		await this.tips.wipe();
+		await this.backgrounds.wipe();
 	}
 
 	async clone()
