@@ -11,7 +11,12 @@ class SaveFile
 	constructor(filepath)
 	{
 		this.filepath = filepath;
-		this.cache = {};
+		this.cache = this.getDefaultData();
+	}
+
+	getDefaultData()
+	{
+		return {};
 	}
 
 	async load()
@@ -25,7 +30,6 @@ class SaveFile
 		}
 		catch (e)
 		{
-			console.log(e.code);
 			switch (e.code)
 			{
 				case 'ENOENT':
@@ -37,6 +41,11 @@ class SaveFile
 					break;
 			}
 		}
+	}
+
+	has(key)
+	{
+		return this.cache.hasOwnProperty(key);
 	}
 
 	get(key)
