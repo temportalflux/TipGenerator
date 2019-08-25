@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = (assetCategory) => {
 	return async (args, bot, msg) => {
 		const assetSave = bot.getAssetSave(assetCategory);
+		console.log(msg);
 		if (args.length <= 0)
 		{
 			await msg.channel.send("You did not specify an entry to be added.");
@@ -45,6 +46,7 @@ module.exports = (assetCategory) => {
 
 		assetSave.addPending(entry);
 		assetSave.save();
+		bot.database.tables.tips.addTipPending(entry);
 		await msg.reply("Your entry is pending approval by someone with manager privleges.");
 	};
 };

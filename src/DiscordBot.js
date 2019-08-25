@@ -1,15 +1,19 @@
 const Discord = require('discord.js');
 const commands = require('./commands/index.js');
-const matcher = require('./commands/matcher.js');
+const Matcher = require('./commands/matcher.js');
 const AssetRepo = require('./AssetRepo.js');
 const BackgroundsRepo = require('./BackgroundsRepo.js');
+const Database = require('./database/Database.js');
+const TableTips = require('./database/TableTips.js');
+const TableBackgrounds = require('./database/TableBackgrounds.js');
 
 class DiscordBot
 {
 
-	constructor(token)
+	constructor(token, databaseName)
 	{
 		this.token = token;
+		this.commandsMatcher = new Matcher(commands);
 
 		// https://discord.js.org/#/docs/main/stable/general/welcome
 		this.client = new Discord.Client();
@@ -25,6 +29,11 @@ class DiscordBot
 			'./assets/Backgrounds'
 		);
 		this.loadDatabase();
+
+		this.database = new Database(databaseName, {
+			tips: new TableTips(),
+			backgrounds: new TableBackgrounds(),
+		});
 	}
 
 	async loadDatabase()
@@ -109,16 +118,16 @@ class DiscordBot
 		}, []);
 	}
 
-	onClientMessage(msg)
+	async onClientMessage(msg)
 	{
 		const match = msg.content.match(new RegExp('!dndtip (.+)'));
 		if (match !== null)
 		{
 			const args = this.parseArguments(match[1]);
-			const result = matcher(commands, args);
-			if (result !== null)
+			const matched = this.commandsMatcher.execute(args);
+			if (matched !== null)
 			{
-				result.func(result.args, this, msg);
+				await matched.func(matched.args, this, msg);
 			}
 		}
 	}

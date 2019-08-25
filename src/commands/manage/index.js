@@ -1,13 +1,23 @@
 const listEntries = require('./listEntries.js');
 const approvePending = require('./approvePending.js');
+const Matcher = require('../matcher.js');
 
 module.exports = {
-	"listTips": (arguments) => { return { 'func': listEntries('tips'), 'args': arguments.slice(1) }; },
-	"listArt": (arguments) => { return { 'func': listEntries('backgrounds'), 'args': arguments.slice(1) }; },
-	"approveTip": (arguments) => { return { 'func': approvePending('tips'), 'args': arguments.slice(1) }; },
-	"approveArt": (arguments) => { return { 'func': approvePending('backgrounds'), 'args': arguments.slice(1) }; },
-	"clone": (arguments) => { return { 'func': require('./clone.js'), 'args': arguments.slice(1) }; },
-	"refresh": (arguments) => { return { 'func': require('./refresh.js'), 'args': arguments.slice(1) }; },
-	"clearUsed": (arguments) => { return { 'func': require('./clearUsed.js'), 'args': arguments.slice(1) }; },
-	"wipe": (arguments) => { return { 'func': require('./wipe.js'), 'args': arguments.slice(1) }; },
+	'db': new Matcher(require('./db/index.js')),
+	"listTips": listEntries('tips'),
+	"listArt": listEntries('backgrounds'),
+	"approveTip": approvePending('tips'),
+	"approveArt": approvePending('backgrounds'),
+	"clone": async (args, bot, msg) => {
+		bot.clone();
+	},
+	"refresh": async (args, bot, msg) => {
+		bot.loadDatabase();
+	},
+	"clearUsed": async (args, bot, msg) => {
+		bot.clearUsed();
+	},
+	"wipe": async (args, bot, msg) => {
+		bot.wipe();
+	},
 };

@@ -68,8 +68,7 @@ class SaveFile
 			switch (statusCode)
 			{
 				case 200:
-					const remoteData = JSON.parse(body);
-					lodash.assign(this.cache, remoteData);
+					this.readTextToCache(body);
 					break;
 				default:
 					console.log(`WARNING Could not laod remote source ${this.remoteSource}, received status code ${statusCode}.`);
@@ -83,6 +82,20 @@ class SaveFile
 		
 		lodash.merge(this.cache, this.getDefaultData());
 		this.save();
+	}
+
+	readTextToCache(text)
+	{
+		try
+		{
+			const remoteData = JSON.parse(text);
+			lodash.assign(this.cache, remoteData);
+		}
+		catch (e)
+		{
+			console.error(e);
+			console.log(text);
+		}
 	}
 
 	has(key)

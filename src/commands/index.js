@@ -1,6 +1,6 @@
-const matcher = require('./matcher.js');
+const Matcher = require('./matcher.js');
 module.exports = {
-	'give': (arguments) => matcher(require('./give/index.js'), arguments.slice(1)),
-	'submit': (arguments) => matcher(require('./submit/index.js'), arguments.slice(1)),
-	'manage': (arguments) => matcher(require('./manage/index.js'), arguments.slice(1)),
+	'give': new Matcher(require('./give/index.js')),
+	'submit': new Matcher(require('./submit/index.js')),
+	'manage': new Matcher(require('./manage/index.js')),
 };
