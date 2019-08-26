@@ -5,3 +5,4 @@ tips.json
 assets
 tipgenerator.sqlite
 *.db
+*.lnk

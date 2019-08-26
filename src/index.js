@@ -28,7 +28,7 @@ class Application
 		this.commandListener = new CommandListener({
 			application: this,
 			prefix: 'dndtip',
-			list: require('./commands/index.js'),
+			//list: require('./commands/index.js'),
 		});
 
 		this.initBot(); // async
@@ -77,7 +77,7 @@ class Application
 			token: require('../secret.json').token
 		});
 
-		this.bot.on('messageReceived', (msg) => this.commandListener.processMessage(msg.content));
+		this.bot.on('messageReceived', (msg) => this.commandListener.processMessage(msg));
 
 		await this.bot.login();
 	}

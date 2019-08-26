@@ -102,45 +102,6 @@ function fragmentText(ctx, text, maxWidth) {
 	return lines;
 }
 
-function createSentenceWrapArray(text, maxLineLength)
-{
-	function findSplitSpaceIndex(currentText)
-	{
-		let splitIndex = maxLineLength;
-		if (splitIndex < currentText.length && currentText[splitIndex] !== ' ')
-		{
-			let currentTextInv = currentText.slice(0, splitIndex).split('').reverse().join('');
-			let iClosestSpace = currentTextInv.length - currentTextInv.search(' ');
-			if (splitIndex - iClosestSpace <= 15)
-				splitIndex = iClosestSpace;
-		}
-		return splitIndex;
-	}
-
-	let textArray = [];
-
-	let currentText = text;
-	while (currentText.length > maxLineLength)
-	{
-		const splitIndex = findSplitSpaceIndex(currentText);
-		if (currentText[splitIndex] === ' ')
-		{
-			// split on space
-			textArray = textArray.concat(currentText.slice(0, splitIndex));
-			currentText = currentText.slice(splitIndex + 1);
-		}
-		else
-		{
-			// need hyphen
-			textArray = textArray.concat(currentText.slice(0, splitIndex - 1) + '-');
-			currentText = currentText.slice(splitIndex);
-		}
-	}
-	textArray.push(currentText);
-
-	return textArray;
-}
-
 function drawText(ctx, canvas, canvasMargin, fontSize, posX, posY, txtArray)
 {
 	let longestText = txtArray.reduce((accum, line) => line.length > accum.length ? line : accum, "");
@@ -214,16 +175,25 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 	};
 }
 
-module.exports = async (args, bot, msg) => {
-	const background = bot.backgrounds.getNextEntry();
-	const tip = bot.tips.getNextEntry();
-	if (background && tip)
+module.exports = {
+	command: 'generate [trackUsage]',
+	desc: 'Generate a tip with image.',
+	builder: {},
+	handler: async (argv) =>
 	{
-		await msg.channel.send(tip, {
-			files: [
-				await generateTipImageAttachment(background, tip)
-			]
-		});
-		console.log(`Sent tip "${tip}" with generated image to "${msg.guild.name}"(${msg.guild.id})-"${msg.channel.name}".`);
-	}
+		/*
+		const background = bot.backgrounds.getNextEntry();
+		const tip = bot.tips.getNextEntry();
+		if (background && tip)
+		{
+			await msg.channel.send(tip, {
+				files: [
+					await generateTipImageAttachment(background, tip)
+				]
+			});
+			console.log(`Sent tip "${tip}" with generated image to "${msg.guild.name}"(${msg.guild.id})-"${msg.channel.name}".`);
+		}
+		//*/
+		console.log('generate');
+	},
 };

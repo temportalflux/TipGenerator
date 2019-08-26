@@ -12,7 +12,8 @@
 		"rimraf": "^3.0.0",
 		"sequelize": "^5.16.0",
 		"shortid": "^2.2.14",
-		"sqlite3": "^4.1.0"
+		"sqlite3": "^4.1.0",
+		"yargs": "^14.0.0"
 	},
 	"devDependencies": {},
 	"scripts": {
