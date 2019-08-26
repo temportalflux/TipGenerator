@@ -1,5 +1,5 @@
 module.exports = {
-    sync: async (args, bot, msg) => {
-        await bot.database.sync();
+    reset: async (args, bot, msg) => {
+        await bot.database.sync({ force: true });
     },
 };

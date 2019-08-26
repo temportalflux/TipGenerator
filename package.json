@@ -11,12 +11,12 @@
 		"request": "^2.88.0",
 		"rimraf": "^3.0.0",
 		"sequelize": "^5.16.0",
-		"shortid": "^2.2.14"
+		"shortid": "^2.2.14",
+		"sqlite3": "^4.1.0"
 	},
-	"devDependencies": {
-	},
+	"devDependencies": {},
 	"scripts": {
-		"start": "npx nodemon --inspect index.js",
+		"start": "npx nodemon --inspect ./src/index.js",
 		"opentools": "node openUrl.js \"chrome://inspect/\""
 	},
 	"author": "temportalflux",

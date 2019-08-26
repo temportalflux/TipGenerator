@@ -2,7 +2,8 @@
 	"verbose": true,
 	"ignore": [
 		"assets/*.json",
-		"assets/Backgrounds/*.*"
+        "assets/Backgrounds/*.*",
+        "*.sqlite*"
 	],
 	"execMap": {
 	}

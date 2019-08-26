@@ -1,12 +1,14 @@
 const Sql = require('sequelize');
 
 module.exports = {
-    text: {
-        type: Sql.STRING,
-        allowNull: false,
-    },
     status: {
-        type: Sql.STRING,
+        type: Sql.ENUM('pending', 'approved'),
         allowNull: false,
+        defaultValue: 'pending',
+    },
+    text: {
+        type: Sql.TEXT,
+        allowNull: false,
+        unique: true,
     },
 };

@@ -4,15 +4,13 @@ const lodash = require('lodash');
 class Database
 {
 
-    constructor(fileName, models)
+    constructor(fileName, dialect, models)
     {
-        this.fileName = fileName;
-
         // https://sequelize.org/master/manual/getting-started.html
         this.db = new Sequelize(
             {
-                dialect: 'sqlite',
-                storage: this.fileName,
+                dialect: dialect,
+                storage: fileName,
                 define: {
                     // The `timestamps` field specify whether or not the `createdAt` and `updatedAt` fields will be created.
                     // This was true by default, but now is false by default.
@@ -22,14 +20,15 @@ class Database
         );
         
         this.models = lodash.toPairs(models).reduce(
-            (accum, [name, attributes]) => {
-                accum[name] = this.db.define(name, attributes, {});
+            (accum, [name, modelInfo]) => {
+                accum[name] = this.db.define(name, modelInfo.attributes,
+                    lodash.assign({}, {
+                        underscored: true,
+                    }, modelInfo.options)
+                );
                 return accum;
             }, {}
         );
-
-        this.init();
-        this.sync();
     }
 
     async init()
@@ -45,11 +44,11 @@ class Database
         }
     }
 
-    async sync()
+    async sync(options)
     {
         try
         {
-            await this.db.sync();
+            await this.db.sync(options);
             console.log('Database models have been synced.');
         }
         catch (err)

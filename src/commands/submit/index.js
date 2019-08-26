@@ -9,7 +9,7 @@ module.exports = {
             return;
         }
 
-        bot.database.models.tips.create({
+        bot.database.models.tip.create({
             status: 'pending',
             text: args.shift(),
         });
@@ -58,7 +58,7 @@ module.exports = {
                 return;
             }
 
-            bot.database.models.backgrounds.create({
+            bot.database.models.background.create({
                 status: 'pending',
                 name: entryFilename,
                 url: args.shift(),
@@ -68,7 +68,7 @@ module.exports = {
         else
         {
             const attachment = attachmentList.shift()[1];
-            bot.database.models.backgrounds.create({
+            bot.database.models.background.create({
                 status: 'pending',
                 name: attachment.filename,
                 url: attachment.url,
