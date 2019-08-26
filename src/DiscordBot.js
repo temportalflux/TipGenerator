@@ -4,8 +4,8 @@ const Matcher = require('./commands/matcher.js');
 const AssetRepo = require('./AssetRepo.js');
 const BackgroundsRepo = require('./BackgroundsRepo.js');
 const Database = require('./database/Database.js');
-const TableTips = require('./database/TableTips.js');
-const TableBackgrounds = require('./database/TableBackgrounds.js');
+const ModelTips = require('./database/ModelTips.js');
+const ModelBackgrounds = require('./database/ModelBackgrounds.js');
 
 class DiscordBot
 {
@@ -31,9 +31,9 @@ class DiscordBot
 		this.loadDatabase();
 
 		this.database = new Database(databaseName, {
-			tips: new TableTips(),
-			backgrounds: new TableBackgrounds(),
-		});
+            tips: ModelTips,
+            backgrounds: ModelBackgrounds,
+        });
 	}
 
 	async loadDatabase()

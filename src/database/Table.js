@@ -1,3 +1,4 @@
+const Model = require('./Model.js');
 
 class Table
 {
@@ -9,9 +10,9 @@ class Table
 		return this;
 	}
 
-	getTableSchema()
+	getModel()
 	{
-		return [];
+		return null;
 	}
 
 	async create()

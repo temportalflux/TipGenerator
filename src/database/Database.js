@@ -1,66 +1,60 @@
-const sqlite = require('sqlite3');
+const Sequelize = require('sequelize');
 const lodash = require('lodash');
 
 class Database
 {
 
-    constructor(fileName, tables)
+    constructor(fileName, models)
     {
         this.fileName = fileName;
-        this.db = new sqlite.Database(this.fileName);
-        this.tables = lodash.mapValues(tables, (value, key) => value.init(this, key));
+
+        // https://sequelize.org/master/manual/getting-started.html
+        this.db = new Sequelize(
+            {
+                dialect: 'sqlite',
+                storage: this.fileName,
+                define: {
+                    // The `timestamps` field specify whether or not the `createdAt` and `updatedAt` fields will be created.
+                    // This was true by default, but now is false by default.
+                    timestamps: false
+                }
+            }
+        );
+        
+        this.models = lodash.toPairs(models).reduce(
+            (accum, [name, attributes]) => {
+                accum[name] = this.db.define(name, attributes, {});
+                return accum;
+            }, {}
+        );
+
+        this.init();
+        this.sync();
     }
 
-	async run(sqlQuery, params=[])
-	{
-		// https://github.com/mapbox/node-sqlite3/wiki/API#databaserunsql-param--callback
-		return await new Promise((resolve, reject) => {
-			this.db.run(sqlQuery, params, (err) => {
-				if (err === null) resolve();
-				else reject(err);
-			});
-		});
-    }
-
-	async all(sqlQuery, params=[])
-	{
-		// https://github.com/mapbox/node-sqlite3/wiki/API#databaserunsql-param--callback
-		return await new Promise((resolve, reject) => {
-			this.db.all(sqlQuery, params, (err, result) => {
-				if (err === null) resolve(result);
-				else reject(err);
-			});
-		});
-    }
-    
-    async getTableNames()
+    async init()
     {
         try
         {
-            const result = await this.all(`SELECT name FROM sqlite_master WHERE type='table';`);
-            return result.map((entry) => entry.name);
+            await this.db.authenticate();
+            console.log('Connection has been established successfully.');
         }
-        catch(e)
+        catch (err)
         {
-            console.error(e);
-        }
-    }
-
-    async drop()
-    {
-        const tableNames = lodash.keys(this.tables);
-        for (const tableName of tableNames)
-        {
-            await this.tables[tableName].drop();
+            console.error('Unable to connect to the database:', err);
         }
     }
 
-    async create()
+    async sync()
     {
-        const tableNames = lodash.keys(this.tables);
-        for (const tableName of tableNames)
+        try
         {
-            await this.tables[tableName].create();
+            await this.db.sync();
+            console.log('Database models have been synced.');
+        }
+        catch (err)
+        {
+            console.error('Unable to sync the database models:', err);
         }
     }
 

@@ -10,12 +10,10 @@
 		"nodemon": "^1.19.1",
 		"request": "^2.88.0",
 		"rimraf": "^3.0.0",
-		"shortid": "^2.2.14",
-		"sqlite3": "^4.1.0",
-		"taffy": "^2.6.2"
+		"sequelize": "^5.16.0",
+		"shortid": "^2.2.14"
 	},
 	"devDependencies": {
-		"open": "^6.0.0"
 	},
 	"scripts": {
 		"start": "npx nodemon --inspect index.js",
