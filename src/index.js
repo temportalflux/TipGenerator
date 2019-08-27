@@ -28,7 +28,6 @@ class Application
 		this.commandListener = new CommandListener({
 			application: this,
 			prefix: 'dndtip',
-			//list: require('./commands/index.js'),
 		});
 
 		this.initBot(); // async
