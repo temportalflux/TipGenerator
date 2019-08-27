@@ -1,13 +1,17 @@
-const Discord = require('discord.js');
+const lodash = require('lodash');
+const Sql = require('sequelize');
+const shortid = require('shortid');
 // https://github.com/Automattic/node-canvas
 const { createCanvas, loadImage } = require('canvas');
-const shortid = require('shortid');
+const Discord = require('discord.js');
+
 
 /*
 	takes a string and a maxWidth and splits the text into lines
 	https://codereview.stackexchange.com/questions/16081/splitting-text-into-lines-from-a-max-width-value-for-canvas
 */
-function fragmentText(ctx, text, maxWidth) { 
+function fragmentText(ctx, text, maxWidth)
+{
 
 	var emmeasure = ctx.measureText("M").width;
 	var spacemeasure = ctx.measureText(" ").width;
@@ -15,23 +19,27 @@ function fragmentText(ctx, text, maxWidth) {
 	if (maxWidth < emmeasure) // To prevent weird looping anamolies farther on.
 		throw "Can't fragment less than one character.";
 
-	if (ctx.measureText(text).width < maxWidth) { 
-		return [text]; 
-	} 
+	if (ctx.measureText(text).width < maxWidth)
+	{
+		return [text];
+	}
 
-	var words = text.split(' '), 
-	metawords = [],
-	lines = [];
+	var words = text.split(' '),
+		metawords = [],
+		lines = [];
 
 	// measure first.
-	for (var w in words) {
+	for (var w in words)
+	{
 		var word = words[w];
 		var measure = ctx.measureText(word).width;
 
 		// Edge case - If the current word is too long for one line, break it into maximized pieces.
-		if (measure > maxWidth) {
+		if (measure > maxWidth)
+		{
 			// TODO - a divide and conquer method might be nicer.
-			var edgewords = ((word, maxWidth) => {
+			var edgewords = ((word, maxWidth) =>
+			{
 				var wlen = word.length;
 				if (wlen == 0) return [];
 				if (wlen == 1) return [word];
@@ -40,14 +48,16 @@ function fragmentText(ctx, text, maxWidth) {
 
 				// Measure each letter.
 				for (var l = 0; l < wlen; l++)
-					letters.push({"letter":word[l], "measure":ctx.measureText(word[l]).width});
+					letters.push({ "letter": word[l], "measure": ctx.measureText(word[l]).width });
 
 				// Assemble the letters into words of maximized length.
-				for (var ml in letters) {
+				for (var ml in letters)
+				{
 					var metaletter = letters[ml];
 
-					if (cmeasure + metaletter.measure > maxWidth) {
-						awords.push({ "word":cword, "len":cword.length, "measure":cmeasure });
+					if (cmeasure + metaletter.measure > maxWidth)
+					{
+						awords.push({ "word": cword, "len": cword.length, "measure": cmeasure });
 						cword = "";
 						cmeasure = 0;
 					}
@@ -56,7 +66,7 @@ function fragmentText(ctx, text, maxWidth) {
 					cmeasure += metaletter.measure;
 				}
 				// there will always be one more word to push.
-				awords.push({ "word":cword, "len":cword.length, "measure":cmeasure });
+				awords.push({ "word": cword, "len": cword.length, "measure": cmeasure });
 				return awords;
 			})(word, maxWidth);
 
@@ -64,20 +74,23 @@ function fragmentText(ctx, text, maxWidth) {
 			for (var ew in edgewords)
 				metawords.push(edgewords[ew]);
 		}
-		else {
-			metawords.push({ "word":word, "len":word.length, "measure":measure });
+		else
+		{
+			metawords.push({ "word": word, "len": word.length, "measure": measure });
 		}
 	}
 
 	// build array of lines second.
 	var cline = "";
 	var cmeasure = 0;
-	for (var mw in metawords) {
+	for (var mw in metawords)
+	{
 		var metaword = metawords[mw];
 
 		// If current word doesn't fit on current line, push the current line and start a new one.
 		// Unless (edge-case): this is a new line and the current word is one character.
-		if ((cmeasure + metaword.measure > maxWidth) && cmeasure > 0 && metaword.len > 1) {
+		if ((cmeasure + metaword.measure > maxWidth) && cmeasure > 0 && metaword.len > 1)
+		{
 			lines.push(cline)
 			cline = "";
 			cmeasure = 0;
@@ -87,10 +100,12 @@ function fragmentText(ctx, text, maxWidth) {
 		cmeasure += metaword.measure;
 
 		// If there's room, append a space, else push the current line and start a new one.
-		if (cmeasure + spacemeasure < maxWidth) {
+		if (cmeasure + spacemeasure < maxWidth)
+		{
 			cline += " ";
 			cmeasure += spacemeasure;
-		} else {
+		} else
+		{
 			lines.push(cline)
 			cline = "";
 			cmeasure = 0;
@@ -120,20 +135,19 @@ function drawText(ctx, canvas, canvasMargin, fontSize, posX, posY, txtArray)
 	);
 
 	ctx.fillStyle = "#FFFFFFFF";
-	txtArray.forEach((line, i) => {
+	txtArray.forEach((line, i) =>
+	{
 		ctx.fillText(line, posX, posY + (i * (fontSize + spaceBetweenLines)));
 	});
 }
 
-async function generateTipImageAttachment(filepathBackground, tipText)
+async function generateTipImageAttachment(backgroundUrl, tipText)
 {
-	const tipBackground = await loadImage(filepathBackground);
+	const tipBackground = await loadImage(backgroundUrl);
 	const dndlogo = await loadImage('./assets/dnd-logo.png');
 
 	const canvas = createCanvas(tipBackground.width, tipBackground.height);
 	const ctx = canvas.getContext('2d');
-
-	console.log(tipBackground.width, tipBackground.height, canvas.width, canvas.height);
 
 	const canvasMargin = canvas.width * 0.03;
 
@@ -148,7 +162,7 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 		dndlogoPosX, canvas.height - dndlogoHeight - canvasMargin,
 		dndlogoWidth, dndlogoHeight
 	);
-	
+
 	// Draw LOADING...
 	{
 		const fontSize = canvas.width * 0.025;
@@ -175,25 +189,99 @@ async function generateTipImageAttachment(filepathBackground, tipText)
 	};
 }
 
+function pickRandom(values)
+{
+	return values[Math.floor(Math.random() * Math.floor(values.length))];
+}
+
+async function getAvailable(Usage, Model, modelToId)
+{
+	const recentlyUsedModels = await Usage.findAll({
+		where: {
+			assetType: { [Sql.Op.eq]: Model.getTableName() }
+		}
+	});
+	var recentlyUsedIds = [];
+	for (model of recentlyUsedModels)
+	{
+		const otherModel = await modelToId(model);
+		recentlyUsedIds.push(otherModel.get('id'));
+	}
+	const availableModels = await Model.findAll({
+		where: {
+			id: { [Sql.Op.notIn]: recentlyUsedIds }
+		}
+	});
+	if (availableModels.length <= 0)
+	{
+		await Usage.destroy({
+			where: {
+				assetType: {
+					[Sql.Op.eq]: Model.getTableName()
+				}
+			}
+		});
+		return await Model.findAll();
+	}
+	return availableModels;
+}
+
 module.exports = {
 	command: 'generate [trackUsage]',
 	desc: 'Generate a tip with image.',
-	builder: {},
+	builder: {
+		trackUsage: {
+			type: 'boolean',
+			describe: 'Flag marking if generating will track the usage of a tip and background',
+			default: false,
+		}
+	},
 	handler: async (argv) =>
 	{
-		/*
-		const background = bot.backgrounds.getNextEntry();
-		const tip = bot.tips.getNextEntry();
-		if (background && tip)
-		{
-			await msg.channel.send(tip, {
+		const Usage = argv.application.Usage;
+
+		const Background = argv.application.Background;
+		const Tip = argv.application.Tip;
+
+		const backgrounds = await getAvailable(
+			Usage, Background,
+			async (usageInst) => await usageInst.getBackground()
+		);
+		const tips = await getAvailable(
+			Usage, Tip,
+			async (usageInst) => await usageInst.getTip()
+		);
+
+		const background = pickRandom(backgrounds);
+		const tip = pickRandom(tips);
+
+		await argv.message.channel.send(
+			tip.get('text'),
+			{
 				files: [
-					await generateTipImageAttachment(background, tip)
+					await generateTipImageAttachment(
+						background.get('url'),
+						tip.get('text')
+					)
 				]
-			});
-			console.log(`Sent tip "${tip}" with generated image to "${msg.guild.name}"(${msg.guild.id})-"${msg.channel.name}".`);
+			}
+		);
+
+		const Creation = argv.application.Creation;
+		const creation = await Creation.create({});
+		await creation.setTip(tip);
+		await creation.setBackground(background);
+
+		if (argv.trackUsage)
+		{
+			const usageTip = await Usage.create({ assetType: Tip.getTableName() });
+			await usageTip.setCreation(creation);
+			await usageTip.setTip(tip);
+
+			const usageBkgd = await Usage.create({ assetType: Background.getTableName() });
+			await usageBkgd.setCreation(creation);
+			await usageBkgd.setBackground(background);
 		}
-		//*/
-		console.log('generate');
+
 	},
 };

@@ -147,7 +147,9 @@ class CommandListener
 			}
 			catch(error)
 			{
-				msg.reply(error.message);
+                if (error.name === 'YError')
+                    await msg.reply(error.message);
+				console.log(error);
 			}
 			/*
 			const args = this.parseArguments(match[1]);
