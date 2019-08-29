@@ -6,3 +6,4 @@ assets
 tipgenerator.sqlite
 *.db
 *.lnk
+secrets.json
