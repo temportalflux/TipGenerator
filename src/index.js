@@ -1,65 +1,46 @@
+const path = require('path');
 const lodash = require('lodash');
 
-const DiscordBot = require('./DiscordBot.js');
-const CommandListener = require('./CommandListener.js');
+const DBL = require('discordbot-lib');
+const Secrets = require('../secrets.json');
 
-const Database = require('./database/Database.js');
-const ModelTips = require('./database/ModelTips.js');
-const ModelBackgrounds = require('./database/ModelBackgrounds.js');
-const ModelUsage = require('./database/ModelUsage.js');
-const ModelCreation = require('./database/ModelCreation.js');
 const Sql = require('sequelize');
+const Models = require('./models/index.js');
 
 const RemoteFile = require('./RemoteFile.js');
 
 require('canvas').registerFont('./assets/dungeon.ttf', { family: 'DnD' });
 
-class Application
+class TipGenerator extends DBL.Application
 {
 
 	constructor()
 	{
-		const gitAssets = 'https://raw.githubusercontent.com/temportalflux/TipGenerator/master/assets';
-		this.remoteFiles = {
-			tip: new RemoteFile(`${gitAssets}/tips.json`),
-			background: new RemoteFile(`${gitAssets}/backgrounds.json`),
-		};
-
-		this.commandListener = new CommandListener({
-			application: this,
-			prefix: 'dndtip',
+		super({
+			applicationName: 'tipgenerator',
+			discordToken: Secrets.token,
+			commands: {
+				prefix: 'dndtip',
+				directory: path.join(__dirname, 'commands'),
+			},
+			databaseModels: Models,
 		});
-
-		this.initBot(); // async
-
-		this.init(); // async
 	}
 
-	async init()
+	// Overriden from Application
+	setupDatabase()
 	{
-		await this.createDatabase('tipgenerator.db', 'sqlite');
-		await this.fetchRemoteFiles();
-	}
-
-	async createDatabase(databaseName, dialect)
-	{
-		this.database = new Database(databaseName, dialect, {
-			tip: { attributes: ModelTips },
-			background: { attributes: ModelBackgrounds },
-			usage: { attributes: ModelUsage, options: { timestamps: true } },
-			creation: { attributes: ModelCreation, options: { timestamps: true } },
-		});
-
 		this.database.models.usage.belongsTo(this.database.models.creation);
 		this.database.models.usage.belongsTo(this.database.models.tip);
 		this.database.models.usage.belongsTo(this.database.models.background);
 
 		this.database.models.creation.belongsTo(this.database.models.tip);
 		this.database.models.creation.belongsTo(this.database.models.background);
+	}
 
-		await this.database.init();
-		await this.database.sync();
-
+	// Overriden from Application
+	onDatabaseReady()
+	{
 		lodash.assignIn(this, lodash.toPairs(this.database.models).reduce((accum, [key, model]) => {
 			accum[key.replace(
 				/(\w)(\w*)/g,
@@ -69,16 +50,14 @@ class Application
 		}, {}));
 	}
 
-	async initBot()
+	async initRemoteFiles()
 	{
-		this.bot = new DiscordBot({
-			application: this,
-			token: require('../secret.json').token
-		});
-
-		this.bot.on('messageReceived', (msg) => this.commandListener.processMessage(msg));
-
-		await this.bot.login();
+		const gitAssets = 'https://raw.githubusercontent.com/temportalflux/TipGenerator/master/assets';
+		this.remoteFiles = {
+			tip: new RemoteFile(`${gitAssets}/tips.json`),
+			background: new RemoteFile(`${gitAssets}/backgrounds.json`),
+		};
+		await this.fetchRemoteFiles();
 	}
 
 	async parseRemoteFile(remoteFile)
@@ -174,4 +153,4 @@ class Application
 
 }
 
-new Application();
+new TipGenerator();
