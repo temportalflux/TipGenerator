@@ -3,10 +3,7 @@ const lodash = require('lodash');
 
 const DBL = require('discordbot-lib');
 const Secrets = require('../secrets.json');
-
-const Sql = require('sequelize');
 const Models = require('./models/index.js');
-
 const RemoteFile = require('./RemoteFile.js');
 
 require('canvas').registerFont('./assets/dungeon.ttf', { family: 'DnD' });
@@ -49,6 +46,8 @@ class TipGenerator extends DBL.Application
 			)] = model;
 			return accum;
 		}, {}));
+
+		this.initRemoteFiles();
 	}
 
 	async initRemoteFiles()
@@ -58,7 +57,7 @@ class TipGenerator extends DBL.Application
 			tip: new RemoteFile(`${gitAssets}/tips.json`),
 			background: new RemoteFile(`${gitAssets}/backgrounds.json`),
 		};
-		await this.fetchRemoteFiles();
+		//await this.fetchRemoteFiles();
 	}
 
 	async parseRemoteFile(remoteFile)

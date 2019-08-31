@@ -14,8 +14,9 @@
 	},
 	"devDependencies": {},
 	"scripts": {
-		"start": "npx nodemon --inspect ./src/index.js",
-		"opentools": "node openUrl.js \"chrome://inspect/\""
+		"debug": "npx nodemon --inspect ./src/index.js",
+		"inviteBot": "node ./inviteBot.js ./secrets.json",
+		"inspect": "node ./inspect.js"
 	},
 	"author": "temportalflux",
 	"license": "ISC"

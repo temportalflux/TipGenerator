@@ -18,6 +18,7 @@ module.exports = lodash.assign(
 				},
 			},
 		},
-		'tip', ['text'], (model) => `(${model.id}) ${model.text}`
+		'tip', ['id', 'text'], (model) => `(${model.id}) ${model.text}`,
+		(argv) => ({ status: argv.status })
 	)
 );

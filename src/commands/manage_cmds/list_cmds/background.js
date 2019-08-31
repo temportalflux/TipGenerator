@@ -18,6 +18,7 @@ module.exports = lodash.assign(
 				},
 			},
 		},
-		'background', ['name'], (model) => `(${model.id}) ${model.name}`
+		'background', ['id', 'name'], (model) => `(${model.id}) ${model.name}`,
+		(argv) => ({ status: argv.status })
 	)
 );

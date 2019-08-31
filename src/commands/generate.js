@@ -4,7 +4,7 @@ const shortid = require('shortid');
 // https://github.com/Automattic/node-canvas
 const { createCanvas, loadImage } = require('canvas');
 const Discord = require('discord.js');
-
+const { Utils } = require('discordbot-lib');
 
 /*
 	takes a string and a maxWidth and splits the text into lines
@@ -156,7 +156,7 @@ async function generateTipImageAttachment(backgroundUrl, tipText)
 
 	// Draw DnD Logo
 	const dndlogoWidth = canvas.width * 0.1;
-	const dndlogoHeight = dndlogoWidth * (dndlogo.height / canvas.height);
+	const dndlogoHeight = dndlogoWidth * (canvas.height / canvas.width);
 	const dndlogoPosX = canvas.width - dndlogoWidth - canvasMargin;
 	ctx.drawImage(dndlogo,
 		dndlogoPosX, canvas.height - dndlogoHeight - canvasMargin,
@@ -187,11 +187,6 @@ async function generateTipImageAttachment(backgroundUrl, tipText)
 		attachment: canvas.createJPEGStream(),
 		name: `${shortid.generate()}.jpg`,
 	};
-}
-
-function pickRandom(values)
-{
-	return values[Math.floor(Math.random() * Math.floor(values.length))];
 }
 
 async function getAvailable(Usage, Model, modelToId)
@@ -238,6 +233,8 @@ module.exports = {
 	},
 	handler: async (argv) =>
 	{
+		if (!argv.message.guild.available) { return; }
+
 		const Usage = argv.application.Usage;
 
 		const Background = argv.application.Background;
@@ -252,8 +249,8 @@ module.exports = {
 			async (usageInst) => await usageInst.getTip()
 		);
 
-		const background = pickRandom(backgrounds);
-		const tip = pickRandom(tips);
+		const background = Utils.Math.pickRandom(backgrounds);
+		const tip = Utils.Math.pickRandom(tips);
 
 		await argv.message.channel.send(
 			tip.get('text'),
@@ -268,17 +265,25 @@ module.exports = {
 		);
 
 		const Creation = argv.application.Creation;
-		const creation = await Creation.create({});
+		const creation = await Creation.create({
+			guild: argv.message.guild.id,
+		});
 		await creation.setTip(tip);
 		await creation.setBackground(background);
 
 		if (argv.trackUsage)
 		{
-			const usageTip = await Usage.create({ assetType: Tip.getTableName() });
+			const usageTip = await Usage.create({
+				guild: argv.message.guild.id,
+				assetType: Tip.getTableName(),
+			});
 			await usageTip.setCreation(creation);
 			await usageTip.setTip(tip);
 
-			const usageBkgd = await Usage.create({ assetType: Background.getTableName() });
+			const usageBkgd = await Usage.create({
+				guild: argv.message.guild.id,
+				assetType: Background.getTableName(),
+			});
 			await usageBkgd.setCreation(creation);
 			await usageBkgd.setBackground(background);
 		}

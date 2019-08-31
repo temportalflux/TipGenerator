@@ -1,8 +1,4 @@
-
-function pickRandom(values)
-{
-	return values[Math.floor(Math.random() * Math.floor(values.length))];
-}
+const { Utils } = require('discordbot-lib');
 
 module.exports = {
 	command: 'randomTip',
@@ -10,12 +6,12 @@ module.exports = {
 	builder: {},
 	handler: async (argv) =>
 	{
-		const Tip = argv.application.Tip;
-		const tips = await Tip.findAll();
-		const tip = pickRandom(tips);
-
-		await argv.message.reply(
-			tip.get('text')
+		if (!argv.message.guild.available) { return; }
+		const tips = await argv.application.database.at('tip').findAll(
+			Utils.Sql.createSimpleOptions({
+				guild: argv.message.guild.id, status: 'approved'
+			})
 		);
+		await argv.message.reply(Utils.Math.pickRandom(tips).get('text'));
 	},
 };
