@@ -4,9 +4,11 @@ module.exports = {
 	builder: {},//(yargs) => yargs.help(),
 	handler: async (argv) =>
 	{
-		argv.application.Tip.create({
-				status: 'pending',
-				text: argv['text'],
+		if (!argv.message.guild.available) { return; }
+		argv.application.database.at('tip').create({
+			guild: argv.message.guild.id,
+			status: 'pending',
+			text: argv.text,
 		});
 		await argv.message.reply("Your entry is pending approval by someone with manager privleges.");
 	},

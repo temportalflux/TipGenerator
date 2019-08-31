@@ -1,11 +1,12 @@
 const lodash = require('lodash');
 const Sql = require('sequelize');
+const { Utils } = require('discordbot-lib');
 
 module.exports = {
-	command: 'approve <assetType> <key>',
+	command: 'approve <category> <key>',
 	desc: 'Approve pending entries from the submit command.',
 	builder: {
-		assetType: {
+		category: {
 			type: 'string',
 			choices: ['tip', 'background'],
 			describe: 'The item type',
@@ -19,42 +20,52 @@ module.exports = {
 	},
 	handler: async (argv) =>
 	{
-		const models = argv.application.database.models;
-		if (!lodash.has(models, argv.assetType))
-		{
-			return;
-		}
-		const Model = models[argv.assetType];
-
+		if (!argv.message.guild.available) { return; }
 		if (argv.key == 'all')
 		{
+			const Model = argv.application.database.at(argv.category);
+			if (!Model)
+			{
+				await argv.message.reply('Invalid category.');
+				return;
+			}
 			await argv.application.database.db.queryInterface.bulkUpdate(
 				Model.getTableName(),
 				{ status: 'approved' },
-				{ status: { [Sql.Op.eq]: 'pending' } },
+				Utils.Sql.createWhereFilter({ status: 'pending' })
 			);
 			await argv.message.reply(`All entries have been approved and can now be accessed via give commands.`);
+			return;
 		}
-		else
+		try
 		{
-			var instance = await Model.findOne({
-				where: {
-					status: { [Sql.Op.eq]: 'pending' },
-					id: { [Sql.Op.eq]: argv.key },
-				},
-			});
-			if (instance == null)
-			{
-				await argv.message.reply(
-					`No such pending item with key ${argv.key}.`
-				);
-				return;
-			}
-			instance = await instance.update(
-				{ status: 'approved' },
-				{ fields: ['status'] }
+			await argv.application.database.replaceField(
+				argv.category,
+				{ status: ['pending', 'approved'] },
+				{
+					guild: argv.message.guild.id,
+					id: argv.key,
+				}
 			);
-            await argv.message.reply(`The entry has been approved. It can now be accessed via give commands. "${instance.dataValues.text}"`);
+			await argv.message.reply(`The entry has been approved!`);
+		}
+		catch (e)
+		{
+			switch (e.error)
+			{
+				case 'InvalidModelKey':
+					await argv.message.reply('Invalid category.');
+					break;
+				case 'InvalidSourceEntry':
+					await argv.message.reply(e.message);
+					break;
+				case 'DestinationEntryAlreadyExists':
+					await argv.message.reply(e.message);
+					break;
+				default:
+					console.error(e);
+					break;
+			}
 		}
 	},
 };

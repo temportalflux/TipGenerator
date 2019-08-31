@@ -41,10 +41,11 @@ class TipGenerator extends DBL.Application
 	// Overriden from Application
 	onDatabaseReady()
 	{
-		lodash.assignIn(this, lodash.toPairs(this.database.models).reduce((accum, [key, model]) => {
+		lodash.assignIn(this, lodash.toPairs(this.database.models).reduce((accum, [key, model]) =>
+		{
 			accum[key.replace(
 				/(\w)(\w*)/g,
-				(g0,g1,g2) => g1.toUpperCase() + g2.toLowerCase()
+				(g0, g1, g2) => g1.toUpperCase() + g2.toLowerCase()
 			)] = model;
 			return accum;
 		}, {}));
@@ -73,7 +74,7 @@ class TipGenerator extends DBL.Application
 		}
 	}
 
-	async loadRemoteData(category, data, model, valueToEntry, findParamsForEntry)
+	async loadRemoteData(modelKey, data, valueToEntry, findParamsForEntry, guildId)
 	{
 		if (data === undefined) return;
 
@@ -82,72 +83,30 @@ class TipGenerator extends DBL.Application
 		const valueSets = lodash.toPairs(data);
 		const entries = valueSets.reduce((accum, [status, values]) =>
 		{
-			console.log(`Loading fetched data from remote for ${status} ${category}...`);
+			console.log(`Loading fetched data from remote for ${status} ${modelKey}...`);
 			return accum.concat(values.map((value) => valueToEntry(status, value)));
 		}, []);
-		const entriesToAdd = [];
-		for (const entry of entries)
-		{
-			const instance = await model.findOne({ where: findParamsForEntry(entry) });
-			if (instance === null)
-			{
-				entriesToAdd.push(entry);
-			}
-		}
-		if (entriesToAdd.length > 0)
-		{
-			try
-			{
-				await model.bulkCreate(entriesToAdd);
-			}
-			catch (errors)
-			{
-				console.error(errors);
-			}
-		}
+		await this.database.importWithFilter(modelKey, entries, findParamsForEntry, (entry) => entry);
 	}
 
-	async fetchRemoteFiles()
+	async fetchRemoteFiles(guildId)
 	{
-		await this.loadRemoteData('tips',
+		await this.loadRemoteData('tip',
 			await this.parseRemoteFile(this.remoteFiles.tip),
-			this.database.models.tip,
-			(status, value) =>
-			{
-				return {
-					status: status,
-					text: value,
-				};
-			},
-			(entry) => {
-				return {
-					text: {
-						[Sql.Op.eq]: entry.text,
-					}
-				};
-			}
+			(status, value) => ({
+				guild: guildId, status: status,
+				text: value,
+			}),
+			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'text']))
 		);
-		await this.loadRemoteData('backgrounds',
+		await this.loadRemoteData('background',
 			await this.parseRemoteFile(this.remoteFiles.background),
-			this.database.models.background,
-			(status, value) =>
-			{
-				return {
-					status: status,
-					name: value.name,
-					url: value.url,
-				};
-			},
-			(entry) => {
-				return {
-					name: {
-						[Sql.Op.eq]: entry.name,
-					},
-					url: {
-						[Sql.Op.eq]: entry.url,
-					},
-				};
-			}
+			(status, value) => ({
+				guild: guildId, status: status,
+				name: value.name,
+				url: value.url,
+			}),
+			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'name', 'url']))
 		);
 	}
 

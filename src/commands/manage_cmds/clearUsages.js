@@ -1,28 +1,27 @@
-const lodash = require('lodash');
-const Sql = require('sequelize');
+const { Utils } = require('discordbot-lib');
 
 module.exports = {
-    command: 'clearUsage <assetType>',
-    desc: 'Clear the usages for a tips or backgrounds.',
-    builder: {},
-    handler: async (argv) =>
-    {
-		const models = argv.application.database.models;
-		if (!lodash.has(models, argv.assetType))
+	command: 'clearUsage <category>',
+	desc: 'Clear the usages for a tips or backgrounds.',
+	builder: {},
+	handler: async (argv) =>
+	{
+		if (!argv.message.guild.available) { return; }
+
+		const Model = argv.application.database.at(argv.category);
+		if (!Model)
 		{
+			await argv.message.reply('Invalid category.');
 			return;
 		}
-		const Model = models[argv.assetType];
 
-		const Usage = argv.application.Usage;
-		await Usage.destroy({
-			where: {
-				assetType: {
-					[Sql.Op.eq]: Model.getTableName()
-				}
-			}
-		});
+		await argv.application.database.at('usage').destroy(
+			Utils.Sql.createSimpleOptions({
+				guild: argv.message.guild,
+				assetType: Model.getTableName(),
+			})
+		);
 
-		await argv.message.reply(`Cleared ${argv.assetType} usages`);
-    },
+		await argv.message.reply(`Cleared ${argv.category} usages`);
+	},
 };
