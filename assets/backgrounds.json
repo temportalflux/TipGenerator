@@ -1,49 +1,92 @@
-{
-  "pending": [],
-  "approved": [
-    {
-      "url": "https://wallpapercave.com/wp/SVhb78h.jpg",
-      "name": "minflayer.jpg"
-    },
-    {
-      "url": "http://getwallpapers.com/wallpaper/full/5/d/a/59857.jpg",
-      "name": "gargoyle-tomb.jpg"
-    },
-    {
-      "url": "https://wallpapercave.com/wp/vBRWwK1.jpg",
-      "name": "lich-forest-fight.jpg"
-    },
-    {
-      "url": "https://cdn.wallpapersafari.com/44/99/ADobB6.jpg",
-      "name": "elf-spirit-fight.jpg"
-    },
-    {
-      "url": "http://dndadventurersleague.org/wp-content/uploads/2015/07/AL-Website-Background-large.jpg",
-      "name": "drow-and-monster.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D89ouIrU0AAVGsR?format=jpg&name=4096x4096",
-      "name": "caleb-widowgast.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D8z8u3PUIAAorUc?format=jpg&name=4096x4096",
-      "name": "yasha-nydoorin.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D-F0n6kVAAAYSr4?format=jpg&name=4096x4096",
-      "name": "cadeucus-clay.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D-agsMfUIAAASW2?format=jpg&name=4096x4096",
-      "name": "fjord.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D92lbBVUIAAgoRv?format=jpg&name=4096x4096",
-      "name": "nott-the-brave.jpg"
-    },
-    {
-      "url": "https://pbs.twimg.com/media/D9j6tPPUcAAZfAH?format=jpg&name=4096x4096",
-      "name": "jester-lavorre.jpg"
-    }
-  ]
-}
+[
+  {
+    "name": "minflayer.jpg",
+    "url": "https://wallpapercave.com/wp/SVhb78h.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "gargoyle-tomb.jpg",
+    "url": "http://getwallpapers.com/wallpaper/full/5/d/a/59857.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "lich-forest-fight.jpg",
+    "url": "https://wallpapercave.com/wp/vBRWwK1.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "elf-spirit-fight.jpg",
+    "url": "https://cdn.wallpapersafari.com/44/99/ADobB6.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "drow-and-monster.jpg",
+    "url": "http://dndadventurersleague.org/wp-content/uploads/2015/07/AL-Website-Background-large.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "caleb-widowgast.jpg",
+    "url": "https://pbs.twimg.com/media/D89ouIrU0AAVGsR?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "yasha-nydoorin.jpg",
+    "url": "https://pbs.twimg.com/media/D8z8u3PUIAAorUc?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "cadeucus-clay.jpg",
+    "url": "https://pbs.twimg.com/media/D-F0n6kVAAAYSr4?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "fjord.jpg",
+    "url": "https://pbs.twimg.com/media/D-agsMfUIAAASW2?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "nott-the-brave.jpg",
+    "url": "https://pbs.twimg.com/media/D92lbBVUIAAgoRv?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "jester-lavorre.jpg",
+    "url": "https://pbs.twimg.com/media/D9j6tPPUcAAZfAH?format=jpg&name=4096x4096",
+    "authorUrl": null
+  },
+  {
+    "name": "dice.jpg",
+    "url": "https://i.imgur.com/CVXvKBN.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "river-zombie.jpg",
+    "url": "https://cdn.discordapp.com/attachments/616685629282975747/617450466611298304/river-zombie.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "classes.jpg",
+    "url": "https://i.imgur.com/k8K1f2C.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "stats.jpg",
+    "url": "https://i.imgur.com/VJ49qIY.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "alignment.jpg",
+    "url": "https://i.imgur.com/kHFr4JY.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "character-sheet.jpg",
+    "url": "https://i.imgur.com/G7rKkOq.jpg",
+    "authorUrl": null
+  },
+  {
+    "name": "dm-screen.jpg",
+    "url": "https://i.imgur.com/lscKsg9.jpg",
+    "authorUrl": null
+  }
+]

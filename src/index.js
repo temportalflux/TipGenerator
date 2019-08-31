@@ -57,7 +57,7 @@ class TipGenerator extends DBL.Application
 			tip: new RemoteFile(`${gitAssets}/tips.json`),
 			background: new RemoteFile(`${gitAssets}/backgrounds.json`),
 		};
-		//await this.fetchRemoteFiles();
+		await this.fetchRemoteFiles();
 	}
 
 	async parseRemoteFile(remoteFile)
@@ -73,17 +73,12 @@ class TipGenerator extends DBL.Application
 		}
 	}
 
-	async loadRemoteData(modelKey, data, valueToEntry, findParamsForEntry, guildId)
+	async loadRemoteData(modelKey, approvedData, valueToEntry, findParamsForEntry)
 	{
-		if (data === undefined) return;
-
-		// keys of data is the status
-		// values are array of entries
-		const valueSets = lodash.toPairs(data);
-		const entries = valueSets.reduce((accum, [status, values]) =>
+		if (approvedData === undefined) return;
+		const entries = approvedData.reduce((accum, entry) =>
 		{
-			console.log(`Loading fetched data from remote for ${status} ${modelKey}...`);
-			return accum.concat(values.map((value) => valueToEntry(status, value)));
+			return accum.concat(valueToEntry('approved', entry));
 		}, []);
 		await this.database.importWithFilter(modelKey, entries, findParamsForEntry, (entry) => entry);
 	}
@@ -92,19 +87,12 @@ class TipGenerator extends DBL.Application
 	{
 		await this.loadRemoteData('tip',
 			await this.parseRemoteFile(this.remoteFiles.tip),
-			(status, value) => ({
-				guild: guildId, status: status,
-				text: value,
-			}),
+			(status, entry) => ({ ...entry, guild: guildId, status: status, }),
 			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'text']))
 		);
 		await this.loadRemoteData('background',
 			await this.parseRemoteFile(this.remoteFiles.background),
-			(status, value) => ({
-				guild: guildId, status: status,
-				name: value.name,
-				url: value.url,
-			}),
+			(status, entry) => ({ ...entry, guild: guildId, status: status, }),
 			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'name', 'url']))
 		);
 	}

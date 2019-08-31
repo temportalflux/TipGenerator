@@ -1,216 +1,846 @@
-{
-  "pending": [],
-  "approved": [
-    "To push someone, make an Athletics check contested by a target's Athletics or Acrobatics check.",
-    "You can use an action to roll Perception to learn about a creature's appearance and potential attacks.",
-    "You can use an action to roll Insight to gain information about a creature's possible resistances and vulnerabilities.",
-    "You can use an action to roll Arcana to discover more about elemental creatures, creatures of pure magic, arcane creations, and creatures of other planes.",
-    "You can use an action to roll History to learn about creatures that play prominent roles in history like goblins, kobolds, and most other humanoid races.",
-    "You can use an action to roll Nature to understand a creature's tied directly to nature like animals, druidic creations, and guardians of nature.",
-    "You can use an action to roll Religion to gain information about creatures of religious nature (Servants of deities, undead, holy and unholy beings, etc).",
-    "When the DM asks you \"Really? Are you sure?\", you always say \"NO\".",
-    "Use your Perception checks often. Or get stabbed in the back. Up to you.",
-    "Only complete chumps pay the full price for anything without trying to barter.",
-    "If you move away from an adjacent enemy, it gets to attack you immediately - unless you use your action to disengage.",
-    "Slower travel is safer travel, and allows you to sneak. Moving faster leaves you more open to the dangers of the world.",
-    "Never split the party. NEVER SPLIT THE PARTY!",
-    "Nature checks can help you identify an unknown monster - and its weaknesses - if it is from the prime material plane.",
-    "Sick of just attacking and being generally useful? Ask the DM about other combat actions! Or find a flask that never empties...",
-    "Try to use your social skills often; violence isn't always the answer! Just usually.",
-    "Be sure to learn the lore and history of the world, your DM probably worked very hard on it.",
-    "Don't forget to check for traps often. People like security and puts traps LITERALLY EVERYWHERE. Yes, even there.",
-    "Roleplaying your character might net you an inspiration point - which can be used to gain advantage on one roll.",
-    "All the coins are multiples of 10 of each other. Electrum is not, and therefore is stupid.",
-    "To use a spell, you must expend a slot of its level or higher. Cantrips are free.",
-    "If the campaign is getting too serious for you, always remember that shit gets silly at taverns.",
-    "Vulnerability means you take double damage. Resistance means you take half damage.",
-    "If you fumble an attack, you automatically miss, and sometimes even hurt yourself.",
-    "If you crit an attack, you automatically hit and roll twice as much damage before adding your modifiers.",
-    "If you don't know what your impairing conditions mean, consult your local deity (DM) before you embarrass yourself.",
-    "This is a tabletop game, not Skyrim. For the love of God, think outside the box and use your head. Maybe don't kill that chicken.",
-    "Think things through before you do them. There is no save files in D&D.",
-    "With ability checks, rolling a 20 or a 1 does not automatically determine success or failure.",
-    "If you're within 5 feet of a prone enemy, you have advantage on attacks. Otherwise they are difficult to see and you have disadvantage.",
-    "Prone creatures have disadvantage on all attack rolls, and need to use a move action to stand up.",
-    "A move action takes half of your movement speed to stand up.",
-    "Poisoned creatures have disadvantage on all attacks and ability checks.",
-    "Grappled creatures have a speed of 0 and cannot benefit from speed bonuses.",
-    "Invisible creatures have advantage on attacks; attacks against them are at disadvantage.",
-    "Frightened creatures cannot willingly move closer to the source of their fear.",
-    "Frightened creatures have disadvantage on attacks and ability checks while they can see the source of their fear.",
-    "Deafened creatures cannot hear, and automatically fail any checks that require hearing.",
-    "Charmed creatures cannoty attack their charmer, and the charmer has advantage on any social interaction with them.",
-    "Blined creatures fail any check requiring sight. Their attacks have disadvantage, and attacks against them have advantage.",
-    "When you have advantage, roll twice, and take the higher number.",
-    "When you have disadvantage, roll twice, and take the lower number.",
-    "The effects of teh same spell cast multiple times do not add up.",
-    "Your attack bonus for a spell attack is the spellcasting ability modifier plus your proficiency bonus.",
-    "Know before hand if your spell is an attack spell or a saving-throw spell.",
-    "The DC to resist your spell is 8 + the spellcasting ability modifier + your proficiency bonus, plus any other modifiers.",
-    "Certain distracting phenomena require a DC 10 Constitution saving throw to maintain concentration on a spell.",
-    "You can't concentrate on two spells that both require concentration at once.",
-    "A concentration check or save uses the Constitution ability.",
-    "If you take damage while concentrating, maintain by making a Constitution saving throw to beat DC10 or half the damage (whichever is higher).",
-    "If a spell requires a somatic component, the caster must have free use of at least one hand to perform gestures.",
-    "If a spell requires a verbal component, the caster must be able to speak.",
-    "When underwater, ranged weapon attacks have disadvantage unless the weapon is a crossbow, net, or throwable.",
-    "Ranged attacks have disadvantage if your target is between your regular and long range.",
-    "You automatically miss if you are underwater and fire beyond your normal weapon range.",
-    "Creatures swimming underwater without a swimming speed have disadvantage on attacks with most melee weapons.",
-    "If a mount provokes an attack of opportunity, the attacker can attack attack the mount OR the rider.",
-    "If a rider's mount is knocked prone, the rider can use their reaction to dismount it as it falls to land on their feet.",
-    "If a mount is moved against its will, the rider must beat a DC10 Dexterity save or fall off the mount, landing prone.",
-    "Getting on a mount costs movement equal to half your speed.",
-    "You can deal non-lethal damage at the instant the damage is dealt.",
-    "You can stabilize a creature on a successful DC10 Medicine check.",
-    "When you get a critical on a death saving throw, you recover 1 hit point. When you fumble one, it counts as 2 failures.",
-    "If an attack brings a creature to 0 HP, and the remaining damage is at least equal to its total HP, the creature dies automatically.",
-    "Vulnerabilities and resistances do not stack. You can't be vulnerable to the same thing twice.",
-    "If you have both disadvantate and advantage, they cancel each other out, even if there are multiple instances of either.",
-    "When using two weapons, don't add the modifier to the bonus attack unless it is negative.",
-    "If you attack with a light weapon, you can use your bonus action to make a second attack with another light weapon.",
-    "You can only grapple or shove creatures who are no more than one size larger than you.",
-    "A shoved target, at your discretion, either moves backward 5 feet or falls prone.",
-    "To grapple an enemy, make an Athletics check against their Athletics or Acrobatics check.",
-    "To escape a grapple, make an Athletics or Acrobatics check against their Athletics check.",
-    "You can carry or drag a grappled creature at half your movement speed (unless its really really small).",
-    "A target with total cover can not be directely dtargeted by an attack or spell.",
-    "A target with three-quarters cover has a +5 bonus to AC and advantage on Dexterity saving throws.",
-    "A target with half cover has a +2 bonus to AC and advantage on Dexterity saving throws.",
-    "Ranged attacks have disadvantage if you are within 5 feet of a hostile target that can see you.",
-    "If you are proficient with something, add your proficiency bonus. ;D",
-    "You have advantage on attacks against creatures that cannot see you.",
-    "You have disadvantage on attacks against creatures that you cannot see.",
-    "While dodging, you have advantage on Dexterity saving throws and attacks against you have disadvantage.",
-    "The dash action allows you to move twice your speed, plus any modifiers.",
-    "You can squeeze through a space if it is big enough for a creature one size smaller than you.",
-    "While squeezing, climbing, swimming, crawling, or being on rough terrain, each foot of movement costs an extra foot.",
-    "Standing up from prone position takes half your movement speed.",
-    "When you switch movement methods, subtract the distance you've already moved from the new speed.",
-    "You can do an action in between moving.",
-    "If a skill contest results in a tie, the situation before the contest remains unchanged.",
-    "To make a group check, everybody makes the check. If at least half the group succeeds, the check succeeds.",
-    "The help action lets whatever creature you are aiding roll with advantage.",
-    "Carrying capacity for a medium creature is the Strength score times 15 pounds.",
-    "Pushing, dragging, and lifting capacity for a medium creature is the Strength score times 30 pounds.",
-    "You add your Strength modifier to both your attack and damage rolls when attacking with most melee weapons.",
-    "You add your Dexterity modifier to both your attack and damage rolls when attacking with ranged and finesse weapons.",
-    "If your Constitution modifier changes, your hit point maximum changes too, as if you had the new modifier from first level.",
-    "On long jumps, you cover a number of feet up to your Strength score - if you have a 10 foot running start.",
-    "Standing long rumps - no running start - only go as far as half your Strength score.",
-    "On high jumps, you cover a number of feet up to 3 plus your Strength score - if you have a 10 foot running start.",
-    "Standing high jumps - no running start - only go as far as half of 3 + your Strength score.",
-    "You can hold your breath for a number of minutes equal to 1 + your Constitution modifier, with a minimum of 30 seconds.",
-    "In heavily obscured areas, creatures without other beneits are considered blind.",
-    "In lightly obscured areas, creatures without other benefits have disdvantage on sight-based checks.",
-    "A creature with blindsight can perceive its surroundings without relying on sight - like Daredevil or Toph.",
-    "A creature with truesight can see in any darkness and detect the true form of things with appearances distorted by magic.",
-    "At short rests, you can recover hit points by rolling your hit die at least once, adding your consitution modifier each time.",
-    "Short rests are at least one hour long, and do require that you don't perform strenuous activity.",
-    "At the end of a long rest, characters regain all lost hit points and up to half of the character's total hit dice.",
-    "You can use time between adventures to tend to poisons, injuries, and diseases.",
-    "You can use time between adventures to do research and see what mysteries can be unfurled.",
-    "Persuasion checks can work miracles, maybe even convince someone to lend you some gold pieces! Go ahead, try it!",
-    "1 in 5 people suffer performance issues. Successful Performance checks can help with that.",
-    "Athletics checks determine how well you can perform physical activities, such as climbing or running touchdowns.",
-    "DMs are always hungry. Bring them food at each session and they may have mercy on your character.",
-    "Remember, the DM's role is to play WITH the players, not AGAINST them. As far as you know anyway.",
-    "Keep track of your buffs and bonuses. Your DM sure as hell can't remember everything.",
-    "According to monster opticians, a Beholder's eyesight is 20:20:20:20:20:20:20:20:20:20:14.",
-    "Adventurer's Tip #37: Never say \"when pigs fly\" around a wizard. That's how we got owlbears!",
-    "The oozes may look delicious, but please don't digest them.",
-    "Just because I asked them to roll a perception check, doesn't mean you get to as well.",
-    "Can't carry enough loot? Hire a lackey!",
-    "Share magic items to stop fist fights at the table",
-    "Despite not having specific buttons, you can try parkour. Climb shelves, swing from chandeliers, slide down stairs like a toddler. It's a more interesting interaction that just marching on the floor.",
-    "Often the DM asks Are You Sure simply to clarify, and it's always safe to answer yes. It doesnt indicate danger at all. Ever.",
-    "Duels to half hp can be fun, give you a safe measure of an opponents strength, and work more cinematically than attacking the entire mercenary company.",
-    "Wizards are the best. Have you ever delved through a giant dungeon assembled by a barbarian? Nope.",
-    "Ten foot poles are extremely useful for when you want trophies. In a pinch you can actually squeeze eleven dismembered feet onto them.",
-    "The cover of the adventure module is often the cover for a reason and stars important individuals.",
-    "A natural 20 doesn't allow you to do the impossible.",
-    "The Player's Handbook is more like guidelines than actual rules.",
-    "Splitting the party is ALWAYS a good idea!",
-    "Please don't place that portable hole inside your bag of holding... No seriously, please don't...",
-    "Contrary to popular belief, fire can kill a dragon! A dragon's fire can also kill you though - and faster.",
-    "Magic often requires the caster to perform complex gestures and recite ancient incantations aloud. Remember that next time you ask if you can discreetly cast a spell on someone.",
-    "Just because there's a bunch of skeletons around it, doesn't mean that magic item is cursed. Sometimes.",
-    "Just because the DM put that monster there doesn't mean you're able to kill it.",
-    "Goblins, nobody can eat just one!",
-    "Rogues have a lot of experience handling money. Let them keep track of the party funds!",
-    "The Orphanage is a great testing ground for new offensive abilities and spells. After all, whos going to miss them?",
-    "Did you know? A 10-foot pole is an indispensible tool for anyone serious about adventuring.",
-    "There are many things to behold in dungeons, Beholders are one of those that you don't want.",
-    "In case of emergency, an Animal Companion can serve as a hearty meal for many days.",
-    "Even though they sound similar Lichens and Lycans have very different Challenge Ratings.",
-    "Check the Player's Handbook, page 151 for information regarding that Pack you obtained during Character Creation.",
-    "Just a reminder: not all warriors are red, nor are mages blue, but if they're about to die, the Cleric has healing to do.",
-    "Throwing the halfling is always a viable strategy.",
-    "Before you try to get a \"discount,\" remember that a shop that sells magic items probably uses quite a few as safeguards.",
-    "Many powerful creatures can assume human form. Consider this before deciding that the mysterious fellow on the side of the road is an easy source of gold.",
-    "When in doubt, blame the bard.",
-    "Try hitting it with your sword.",
-    "Healing potions can restore health.",
-    "Remember, there may be a magical solution.",
-    "Never say \"Over my dead body\" to a necromancer.",
-    "Humans are not \"dire-halflings\".",
-    "If a dragon invites you to a barbeque, decline.",
-    "Atheism isn't rational in a world where you can bump into gods in the street. Piety is good policy.",
-    "Anyone can disengage if they forego an action.",
-    "Remember to use social skills! Combat isn't always necessary!",
-    "When you attack with a light weapon, you can use a bonus action to attack with one in your other hand.",
-    "You can make Nature checks to identify monsters and their weaknesses.",
-    "When you reduce a creature to 0 hit points with a melee attack, you can choose to knock it out instead of killing it.",
-    "That was neither lawful, nor good...",
-    "Your Bards, Sorcerors, and Paladins should be the ideal negotiators in the group, due to their high Charisma. Unless they have a \"Kill first, ask questions later\" attitude towards negotiating, in which case you need new teammates.",
-    "Losing a ten foot pole to a trap is a lot better than losing a limb.",
-    "If the DM is smiling you fucked up somewhere.",
-    "Having a hard time during fights? All you have to do is reduce your enemies HP to below one, while simultaneously keeping your own HP above zero.",
-    "Did you know Highorse Paladinus once defeated a balor that invaded earth?",
-    "Some say a book of great evil has appeared after a great period of being missing.",
-    "Grease has numerous uses. For example, healthy frying of food- cook it in the grease, then once you're done, it vanishes!",
-    "Health potions you find in a millennia old crypt are never trapped or poisoned. Or are they?",
-    "Isn't it odd how tombs are full of still legal tender?",
-    "Trust me, at least you don't have to deal with THAC0",
-    "Generally, when reanimating the dead, it's polite to ask the dead first if they want to come back.",
-    "Mimic paranoia never ends well. Eventually the entire dungeon is a giant mimic.",
-    "Ratfolk of Medium Size? I don't think they exist.",
-    "Try challenging people to a duel to first blood rather than the death!",
-    "Have you ever considered peaceful negotiations?",
-    "Crystaline Memories is a spell in which you RIP OUT A STONE OUT OF SOMEONE'S BRAIN. Wizards.",
-    "Beeswax is excellent both for disabling traps and for making earplugs to defend against sound-based effects.",
-    "Always carry around a bit of Brown Mold in a small tin can. With a standard-issue flint and steel, you have instant air conditioning.",
-    "Illusions? How quaint. Before I destroy you, make one that looks like a really big goldfish—like as big as me! - Xanathar",
-    "Hmm. That's too big. Goodbye! - Xanathar",
-    "I need the biggest seed bell you have... No, that's too big. - Xanathar",
-    "Never rely on magic items. They're so fickle. First they work, and then they don't. On, off, on, off - in the blink of my eye. - Xanathar",
-    "What's that, Sylgar? No. Not yet, my fishy friend. They just got here. Perhaps after we chat a bit. I find a little conversation at the beginning helps digestion. - Xanathar",
-    "You know one of the great benefits of living underground? No weather. - Xanathar",
-    "Music is stupid. Wait. I changed my mind. Music is fun. Play more music. No, I was right the first time. Music is stupid. But I won't maim you after all, in case I change my mind again. - Xanathar",
-    "Speak up! It's really hard to hear you over the screaming. Nope. It's no use. I'll have to stop the screaming. Disintegrations all around, then. - Xanathar",
-    "I don't understand the attraction of gods. Why would anyone worship anything other than me? - Xanathar",
-    "I've got a minion that forges things. An ink-stained little twerp with excellent penmanship. So how do the hammers and fire help the process? Wouldn't the paper get burned? Oh, the fire must be for the wax seals! - Xanathar",
-    "I guess if you can't disintegrate them or eat them, burying dead bodies makes as much sense as anything else. - Xanathar",
-    "I've always liked druids, because they are made of natural ingredients. And I believe that everyone should have such a healthy diet. - Xanathar",
-    "I don't dream because I don't sleep. I'm always awake so no one can ever sneak up on me. If I dreamed, they would be bigger dreams than yours, though, because my head is bigger. - Xanathar",
-    "If I could turn into something else, I wouldn't. Because everything else is inferior to me. - Xanathar",
-    "Sticks and stones may break my bones, but swords will never hurt me — as long as I stay really high and shoot down at an angle. - Xanathar",
-    "Arrows are the worst. They go much farther than eye rays. That's why I stay indoors all the time. Besides, the sky is totally overrated. - Xanathar",
-    "So there are different names for different sorts of people who swing swords? Why? Let me try: big sword swinger and tiny sword swinger. No, that sounds like it's the size of the sword that matters. How about: big meat bag with a sword and little meat bag with a sword! - Xanathar",
-    "I bet I could be a monk if I wanted. What? Why are you laughing? - Xanathar",
-    "Why did the samurai cross the road? … Now you say “Why?” … Okay, here's the joke part: I kensei. Get it? What? Why aren't you laughing? The joke is solid gold, and my delivery was perfect. Maybe you didn't get it because you're stupid. - Xanathar",
-    "So you have this soul, but you can't see it or touch it. And when you die, this invisible thing leaves your body and goes to a place you can't see. And you people think I'm crazy? - Xanathar",
-    "Living up to an oath? That sounds ridiculous. Why would anyone ever do that? There's nothing wrong with making promises, but only suckers keep them. - Xanathar",
-    "Conquest sounds cool. Do you have to leave your house for that? Because I've got a fish named Sylgar, and I can't be away for too long or he gets sad. - Xanathar",
-    "Redemption. So you feel bad about having done something, and then you have to do something to feel better? Why don't you just kill and eat someone? That always makes me feel better. - Xanathar",
-    "I'm a monster. Are you going to try to kill me? Didn't think so. Go kill some goblins or something. On second thought, goblins aren't monsters — they're people. So maybe you should call yourself a people killer. - Xanathar",
-    "So you sneak around in the dark? You know most everything but humans can see in the dark, right? We all see you. Tiptoeing doesn't turn you invisible. - Xanathar",
-    "Thieves are the worst. I hate anyone that handles my stuff when I'm not looking, especially if they don't put it back where they found it. - Xanathar",
-    "What's a swashbuckler? Do you swash buckles or buckle swashes? You can't tell me you don't think that word is funny. - Xanathar",
-    "Why do so many celestial things have bird wings and infernal things have bat wings? It seems arbitrary. There should be a bat angel! - Xanathar",
-    "Sometimes I disintegrate my shadow when I see it, because I think it's a different beholder. - Xanathar",
-    "What is it with people and the weather? It's just the sky weeping and shouting because it's so far away from me. - Xanathar",
-    "So you got your powers by making a contract with something? Is it in writing, perchance? Well, never mind. Just tell me this: Can I get your powers by eating you? - Xanathar",
-    "So why can't people who use magic do it all the time? I can disintegrate things whenever I want. Like now. And now. And now. And now … Hey, where'd everybody go - Xanathar?"
-  ]
-}
+[
+  {
+    "text": "To push someone, make an Athletics check contested by a target's Athletics or Acrobatics check.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll Perception to learn about a creature's appearance and potential attacks.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll Insight to gain information about a creature's possible resistances and vulnerabilities.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll Arcana to discover more about elemental creatures, creatures of pure magic, arcane creations, and creatures of other planes.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll History to learn about creatures that play prominent roles in history like goblins, kobolds, and most other humanoid races.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll Nature to understand a creature's tied directly to nature like animals, druidic creations, and guardians of nature.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use an action to roll Religion to gain information about creatures of religious nature (Servants of deities, undead, holy and unholy beings, etc).",
+    "authorUrl": null
+  },
+  {
+    "text": "When the DM asks you \"Really? Are you sure?\", you always say \"NO\".",
+    "authorUrl": null
+  },
+  {
+    "text": "Use your Perception checks often. Or get stabbed in the back. Up to you.",
+    "authorUrl": null
+  },
+  {
+    "text": "Only complete chumps pay the full price for anything without trying to barter.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you move away from an adjacent enemy, it gets to attack you immediately - unless you use your action to disengage.",
+    "authorUrl": null
+  },
+  {
+    "text": "Slower travel is safer travel, and allows you to sneak. Moving faster leaves you more open to the dangers of the world.",
+    "authorUrl": null
+  },
+  {
+    "text": "Never split the party. NEVER SPLIT THE PARTY!",
+    "authorUrl": null
+  },
+  {
+    "text": "Nature checks can help you identify an unknown monster - and its weaknesses - if it is from the prime material plane.",
+    "authorUrl": null
+  },
+  {
+    "text": "Sick of just attacking and being generally useful? Ask the DM about other combat actions! Or find a flask that never empties...",
+    "authorUrl": null
+  },
+  {
+    "text": "Try to use your social skills often; violence isn't always the answer! Just usually.",
+    "authorUrl": null
+  },
+  {
+    "text": "Be sure to learn the lore and history of the world, your DM probably worked very hard on it.",
+    "authorUrl": null
+  },
+  {
+    "text": "Don't forget to check for traps often. People like security and puts traps LITERALLY EVERYWHERE. Yes, even there.",
+    "authorUrl": null
+  },
+  {
+    "text": "Roleplaying your character might net you an inspiration point - which can be used to gain advantage on one roll.",
+    "authorUrl": null
+  },
+  {
+    "text": "All the coins are multiples of 10 of each other. Electrum is not, and therefore is stupid.",
+    "authorUrl": null
+  },
+  {
+    "text": "To use a spell, you must expend a slot of its level or higher. Cantrips are free.",
+    "authorUrl": null
+  },
+  {
+    "text": "If the campaign is getting too serious for you, always remember that shit gets silly at taverns.",
+    "authorUrl": null
+  },
+  {
+    "text": "Vulnerability means you take double damage. Resistance means you take half damage.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you fumble an attack, you automatically miss, and sometimes even hurt yourself.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you crit an attack, you automatically hit and roll twice as much damage before adding your modifiers.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you don't know what your impairing conditions mean, consult your local deity (DM) before you embarrass yourself.",
+    "authorUrl": null
+  },
+  {
+    "text": "This is a tabletop game, not Skyrim. For the love of God, think outside the box and use your head. Maybe don't kill that chicken.",
+    "authorUrl": null
+  },
+  {
+    "text": "Think things through before you do them. There is no save files in D&D.",
+    "authorUrl": null
+  },
+  {
+    "text": "With ability checks, rolling a 20 or a 1 does not automatically determine success or failure.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you're within 5 feet of a prone enemy, you have advantage on attacks. Otherwise they are difficult to see and you have disadvantage.",
+    "authorUrl": null
+  },
+  {
+    "text": "Prone creatures have disadvantage on all attack rolls, and need to use a move action to stand up.",
+    "authorUrl": null
+  },
+  {
+    "text": "A move action takes half of your movement speed to stand up.",
+    "authorUrl": null
+  },
+  {
+    "text": "Poisoned creatures have disadvantage on all attacks and ability checks.",
+    "authorUrl": null
+  },
+  {
+    "text": "Grappled creatures have a speed of 0 and cannot benefit from speed bonuses.",
+    "authorUrl": null
+  },
+  {
+    "text": "Invisible creatures have advantage on attacks; attacks against them are at disadvantage.",
+    "authorUrl": null
+  },
+  {
+    "text": "Frightened creatures cannot willingly move closer to the source of their fear.",
+    "authorUrl": null
+  },
+  {
+    "text": "Frightened creatures have disadvantage on attacks and ability checks while they can see the source of their fear.",
+    "authorUrl": null
+  },
+  {
+    "text": "Deafened creatures cannot hear, and automatically fail any checks that require hearing.",
+    "authorUrl": null
+  },
+  {
+    "text": "Charmed creatures cannoty attack their charmer, and the charmer has advantage on any social interaction with them.",
+    "authorUrl": null
+  },
+  {
+    "text": "Blined creatures fail any check requiring sight. Their attacks have disadvantage, and attacks against them have advantage.",
+    "authorUrl": null
+  },
+  {
+    "text": "When you have advantage, roll twice, and take the higher number.",
+    "authorUrl": null
+  },
+  {
+    "text": "When you have disadvantage, roll twice, and take the lower number.",
+    "authorUrl": null
+  },
+  {
+    "text": "The effects of teh same spell cast multiple times do not add up.",
+    "authorUrl": null
+  },
+  {
+    "text": "Your attack bonus for a spell attack is the spellcasting ability modifier plus your proficiency bonus.",
+    "authorUrl": null
+  },
+  {
+    "text": "Know before hand if your spell is an attack spell or a saving-throw spell.",
+    "authorUrl": null
+  },
+  {
+    "text": "The DC to resist your spell is 8 + the spellcasting ability modifier + your proficiency bonus, plus any other modifiers.",
+    "authorUrl": null
+  },
+  {
+    "text": "Certain distracting phenomena require a DC 10 Constitution saving throw to maintain concentration on a spell.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can't concentrate on two spells that both require concentration at once.",
+    "authorUrl": null
+  },
+  {
+    "text": "A concentration check or save uses the Constitution ability.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you take damage while concentrating, maintain by making a Constitution saving throw to beat DC10 or half the damage (whichever is higher).",
+    "authorUrl": null
+  },
+  {
+    "text": "If a spell requires a somatic component, the caster must have free use of at least one hand to perform gestures.",
+    "authorUrl": null
+  },
+  {
+    "text": "If a spell requires a verbal component, the caster must be able to speak.",
+    "authorUrl": null
+  },
+  {
+    "text": "When underwater, ranged weapon attacks have disadvantage unless the weapon is a crossbow, net, or throwable.",
+    "authorUrl": null
+  },
+  {
+    "text": "Ranged attacks have disadvantage if your target is between your regular and long range.",
+    "authorUrl": null
+  },
+  {
+    "text": "You automatically miss if you are underwater and fire beyond your normal weapon range.",
+    "authorUrl": null
+  },
+  {
+    "text": "Creatures swimming underwater without a swimming speed have disadvantage on attacks with most melee weapons.",
+    "authorUrl": null
+  },
+  {
+    "text": "If a mount provokes an attack of opportunity, the attacker can attack attack the mount OR the rider.",
+    "authorUrl": null
+  },
+  {
+    "text": "If a rider's mount is knocked prone, the rider can use their reaction to dismount it as it falls to land on their feet.",
+    "authorUrl": null
+  },
+  {
+    "text": "If a mount is moved against its will, the rider must beat a DC10 Dexterity save or fall off the mount, landing prone.",
+    "authorUrl": null
+  },
+  {
+    "text": "Getting on a mount costs movement equal to half your speed.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can deal non-lethal damage at the instant the damage is dealt.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can stabilize a creature on a successful DC10 Medicine check.",
+    "authorUrl": null
+  },
+  {
+    "text": "When you get a critical on a death saving throw, you recover 1 hit point. When you fumble one, it counts as 2 failures.",
+    "authorUrl": null
+  },
+  {
+    "text": "If an attack brings a creature to 0 HP, and the remaining damage is at least equal to its total HP, the creature dies automatically.",
+    "authorUrl": null
+  },
+  {
+    "text": "Vulnerabilities and resistances do not stack. You can't be vulnerable to the same thing twice.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you have both disadvantate and advantage, they cancel each other out, even if there are multiple instances of either.",
+    "authorUrl": null
+  },
+  {
+    "text": "When using two weapons, don't add the modifier to the bonus attack unless it is negative.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you attack with a light weapon, you can use your bonus action to make a second attack with another light weapon.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can only grapple or shove creatures who are no more than one size larger than you.",
+    "authorUrl": null
+  },
+  {
+    "text": "A shoved target, at your discretion, either moves backward 5 feet or falls prone.",
+    "authorUrl": null
+  },
+  {
+    "text": "To grapple an enemy, make an Athletics check against their Athletics or Acrobatics check.",
+    "authorUrl": null
+  },
+  {
+    "text": "To escape a grapple, make an Athletics or Acrobatics check against their Athletics check.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can carry or drag a grappled creature at half your movement speed (unless its really really small).",
+    "authorUrl": null
+  },
+  {
+    "text": "A target with total cover can not be directely dtargeted by an attack or spell.",
+    "authorUrl": null
+  },
+  {
+    "text": "A target with three-quarters cover has a +5 bonus to AC and advantage on Dexterity saving throws.",
+    "authorUrl": null
+  },
+  {
+    "text": "A target with half cover has a +2 bonus to AC and advantage on Dexterity saving throws.",
+    "authorUrl": null
+  },
+  {
+    "text": "Ranged attacks have disadvantage if you are within 5 feet of a hostile target that can see you.",
+    "authorUrl": null
+  },
+  {
+    "text": "If you are proficient with something, add your proficiency bonus. ;D",
+    "authorUrl": null
+  },
+  {
+    "text": "You have advantage on attacks against creatures that cannot see you.",
+    "authorUrl": null
+  },
+  {
+    "text": "You have disadvantage on attacks against creatures that you cannot see.",
+    "authorUrl": null
+  },
+  {
+    "text": "While dodging, you have advantage on Dexterity saving throws and attacks against you have disadvantage.",
+    "authorUrl": null
+  },
+  {
+    "text": "The dash action allows you to move twice your speed, plus any modifiers.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can squeeze through a space if it is big enough for a creature one size smaller than you.",
+    "authorUrl": null
+  },
+  {
+    "text": "While squeezing, climbing, swimming, crawling, or being on rough terrain, each foot of movement costs an extra foot.",
+    "authorUrl": null
+  },
+  {
+    "text": "Standing up from prone position takes half your movement speed.",
+    "authorUrl": null
+  },
+  {
+    "text": "When you switch movement methods, subtract the distance you've already moved from the new speed.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can do an action in between moving.",
+    "authorUrl": null
+  },
+  {
+    "text": "If a skill contest results in a tie, the situation before the contest remains unchanged.",
+    "authorUrl": null
+  },
+  {
+    "text": "To make a group check, everybody makes the check. If at least half the group succeeds, the check succeeds.",
+    "authorUrl": null
+  },
+  {
+    "text": "The help action lets whatever creature you are aiding roll with advantage.",
+    "authorUrl": null
+  },
+  {
+    "text": "Carrying capacity for a medium creature is the Strength score times 15 pounds.",
+    "authorUrl": null
+  },
+  {
+    "text": "Pushing, dragging, and lifting capacity for a medium creature is the Strength score times 30 pounds.",
+    "authorUrl": null
+  },
+  {
+    "text": "You add your Strength modifier to both your attack and damage rolls when attacking with most melee weapons.",
+    "authorUrl": null
+  },
+  {
+    "text": "You add your Dexterity modifier to both your attack and damage rolls when attacking with ranged and finesse weapons.",
+    "authorUrl": null
+  },
+  {
+    "text": "If your Constitution modifier changes, your hit point maximum changes too, as if you had the new modifier from first level.",
+    "authorUrl": null
+  },
+  {
+    "text": "On long jumps, you cover a number of feet up to your Strength score - if you have a 10 foot running start.",
+    "authorUrl": null
+  },
+  {
+    "text": "Standing long rumps - no running start - only go as far as half your Strength score.",
+    "authorUrl": null
+  },
+  {
+    "text": "On high jumps, you cover a number of feet up to 3 plus your Strength score - if you have a 10 foot running start.",
+    "authorUrl": null
+  },
+  {
+    "text": "Standing high jumps - no running start - only go as far as half of 3 + your Strength score.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can hold your breath for a number of minutes equal to 1 + your Constitution modifier, with a minimum of 30 seconds.",
+    "authorUrl": null
+  },
+  {
+    "text": "In heavily obscured areas, creatures without other beneits are considered blind.",
+    "authorUrl": null
+  },
+  {
+    "text": "In lightly obscured areas, creatures without other benefits have disdvantage on sight-based checks.",
+    "authorUrl": null
+  },
+  {
+    "text": "A creature with blindsight can perceive its surroundings without relying on sight - like Daredevil or Toph.",
+    "authorUrl": null
+  },
+  {
+    "text": "A creature with truesight can see in any darkness and detect the true form of things with appearances distorted by magic.",
+    "authorUrl": null
+  },
+  {
+    "text": "At short rests, you can recover hit points by rolling your hit die at least once, adding your consitution modifier each time.",
+    "authorUrl": null
+  },
+  {
+    "text": "Short rests are at least one hour long, and do require that you don't perform strenuous activity.",
+    "authorUrl": null
+  },
+  {
+    "text": "At the end of a long rest, characters regain all lost hit points and up to half of the character's total hit dice.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use time between adventures to tend to poisons, injuries, and diseases.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can use time between adventures to do research and see what mysteries can be unfurled.",
+    "authorUrl": null
+  },
+  {
+    "text": "Persuasion checks can work miracles, maybe even convince someone to lend you some gold pieces! Go ahead, try it!",
+    "authorUrl": null
+  },
+  {
+    "text": "1 in 5 people suffer performance issues. Successful Performance checks can help with that.",
+    "authorUrl": null
+  },
+  {
+    "text": "Athletics checks determine how well you can perform physical activities, such as climbing or running touchdowns.",
+    "authorUrl": null
+  },
+  {
+    "text": "DMs are always hungry. Bring them food at each session and they may have mercy on your character.",
+    "authorUrl": null
+  },
+  {
+    "text": "Remember, the DM's role is to play WITH the players, not AGAINST them. As far as you know anyway.",
+    "authorUrl": null
+  },
+  {
+    "text": "Keep track of your buffs and bonuses. Your DM sure as hell can't remember everything.",
+    "authorUrl": null
+  },
+  {
+    "text": "According to monster opticians, a Beholder's eyesight is 20:20:20:20:20:20:20:20:20:20:14.",
+    "authorUrl": null
+  },
+  {
+    "text": "Adventurer's Tip #37: Never say \"when pigs fly\" around a wizard. That's how we got owlbears!",
+    "authorUrl": null
+  },
+  {
+    "text": "The oozes may look delicious, but please don't digest them.",
+    "authorUrl": null
+  },
+  {
+    "text": "Just because I asked them to roll a perception check, doesn't mean you get to as well.",
+    "authorUrl": null
+  },
+  {
+    "text": "Can't carry enough loot? Hire a lackey!",
+    "authorUrl": null
+  },
+  {
+    "text": "Share magic items to stop fist fights at the table",
+    "authorUrl": null
+  },
+  {
+    "text": "Despite not having specific buttons, you can try parkour. Climb shelves, swing from chandeliers, slide down stairs like a toddler. It's a more interesting interaction that just marching on the floor.",
+    "authorUrl": null
+  },
+  {
+    "text": "Often the DM asks Are You Sure simply to clarify, and it's always safe to answer yes. It doesnt indicate danger at all. Ever.",
+    "authorUrl": null
+  },
+  {
+    "text": "Duels to half hp can be fun, give you a safe measure of an opponents strength, and work more cinematically than attacking the entire mercenary company.",
+    "authorUrl": null
+  },
+  {
+    "text": "Wizards are the best. Have you ever delved through a giant dungeon assembled by a barbarian? Nope.",
+    "authorUrl": null
+  },
+  {
+    "text": "Ten foot poles are extremely useful for when you want trophies. In a pinch you can actually squeeze eleven dismembered feet onto them.",
+    "authorUrl": null
+  },
+  {
+    "text": "The cover of the adventure module is often the cover for a reason and stars important individuals.",
+    "authorUrl": null
+  },
+  {
+    "text": "A natural 20 doesn't allow you to do the impossible.",
+    "authorUrl": null
+  },
+  {
+    "text": "The Player's Handbook is more like guidelines than actual rules.",
+    "authorUrl": null
+  },
+  {
+    "text": "Splitting the party is ALWAYS a good idea!",
+    "authorUrl": null
+  },
+  {
+    "text": "Please don't place that portable hole inside your bag of holding... No seriously, please don't...",
+    "authorUrl": null
+  },
+  {
+    "text": "Contrary to popular belief, fire can kill a dragon! A dragon's fire can also kill you though - and faster.",
+    "authorUrl": null
+  },
+  {
+    "text": "Magic often requires the caster to perform complex gestures and recite ancient incantations aloud. Remember that next time you ask if you can discreetly cast a spell on someone.",
+    "authorUrl": null
+  },
+  {
+    "text": "Just because there's a bunch of skeletons around it, doesn't mean that magic item is cursed. Sometimes.",
+    "authorUrl": null
+  },
+  {
+    "text": "Just because the DM put that monster there doesn't mean you're able to kill it.",
+    "authorUrl": null
+  },
+  {
+    "text": "Goblins, nobody can eat just one!",
+    "authorUrl": null
+  },
+  {
+    "text": "Rogues have a lot of experience handling money. Let them keep track of the party funds!",
+    "authorUrl": null
+  },
+  {
+    "text": "The Orphanage is a great testing ground for new offensive abilities and spells. After all, whos going to miss them?",
+    "authorUrl": null
+  },
+  {
+    "text": "Did you know? A 10-foot pole is an indispensible tool for anyone serious about adventuring.",
+    "authorUrl": null
+  },
+  {
+    "text": "There are many things to behold in dungeons, Beholders are one of those that you don't want.",
+    "authorUrl": null
+  },
+  {
+    "text": "In case of emergency, an Animal Companion can serve as a hearty meal for many days.",
+    "authorUrl": null
+  },
+  {
+    "text": "Even though they sound similar Lichens and Lycans have very different Challenge Ratings.",
+    "authorUrl": null
+  },
+  {
+    "text": "Check the Player's Handbook, page 151 for information regarding that Pack you obtained during Character Creation.",
+    "authorUrl": null
+  },
+  {
+    "text": "Just a reminder: not all warriors are red, nor are mages blue, but if they're about to die, the Cleric has healing to do.",
+    "authorUrl": null
+  },
+  {
+    "text": "Throwing the halfling is always a viable strategy.",
+    "authorUrl": null
+  },
+  {
+    "text": "Before you try to get a \"discount,\" remember that a shop that sells magic items probably uses quite a few as safeguards.",
+    "authorUrl": null
+  },
+  {
+    "text": "Many powerful creatures can assume human form. Consider this before deciding that the mysterious fellow on the side of the road is an easy source of gold.",
+    "authorUrl": null
+  },
+  {
+    "text": "When in doubt, blame the bard.",
+    "authorUrl": null
+  },
+  {
+    "text": "Try hitting it with your sword.",
+    "authorUrl": null
+  },
+  {
+    "text": "Healing potions can restore health.",
+    "authorUrl": null
+  },
+  {
+    "text": "Remember, there may be a magical solution.",
+    "authorUrl": null
+  },
+  {
+    "text": "Never say \"Over my dead body\" to a necromancer.",
+    "authorUrl": null
+  },
+  {
+    "text": "Humans are not \"dire-halflings\".",
+    "authorUrl": null
+  },
+  {
+    "text": "If a dragon invites you to a barbeque, decline.",
+    "authorUrl": null
+  },
+  {
+    "text": "Atheism isn't rational in a world where you can bump into gods in the street. Piety is good policy.",
+    "authorUrl": null
+  },
+  {
+    "text": "Anyone can disengage if they forego an action.",
+    "authorUrl": null
+  },
+  {
+    "text": "Remember to use social skills! Combat isn't always necessary!",
+    "authorUrl": null
+  },
+  {
+    "text": "When you attack with a light weapon, you can use a bonus action to attack with one in your other hand.",
+    "authorUrl": null
+  },
+  {
+    "text": "You can make Nature checks to identify monsters and their weaknesses.",
+    "authorUrl": null
+  },
+  {
+    "text": "When you reduce a creature to 0 hit points with a melee attack, you can choose to knock it out instead of killing it.",
+    "authorUrl": null
+  },
+  {
+    "text": "That was neither lawful, nor good...",
+    "authorUrl": null
+  },
+  {
+    "text": "Your Bards, Sorcerors, and Paladins should be the ideal negotiators in the group, due to their high Charisma. Unless they have a \"Kill first, ask questions later\" attitude towards negotiating, in which case you need new teammates.",
+    "authorUrl": null
+  },
+  {
+    "text": "Losing a ten foot pole to a trap is a lot better than losing a limb.",
+    "authorUrl": null
+  },
+  {
+    "text": "If the DM is smiling you fucked up somewhere.",
+    "authorUrl": null
+  },
+  {
+    "text": "Having a hard time during fights? All you have to do is reduce your enemies HP to below one, while simultaneously keeping your own HP above zero.",
+    "authorUrl": null
+  },
+  {
+    "text": "Did you know Highorse Paladinus once defeated a balor that invaded earth?",
+    "authorUrl": null
+  },
+  {
+    "text": "Some say a book of great evil has appeared after a great period of being missing.",
+    "authorUrl": null
+  },
+  {
+    "text": "Grease has numerous uses. For example, healthy frying of food- cook it in the grease, then once you're done, it vanishes!",
+    "authorUrl": null
+  },
+  {
+    "text": "Health potions you find in a millennia old crypt are never trapped or poisoned. Or are they?",
+    "authorUrl": null
+  },
+  {
+    "text": "Isn't it odd how tombs are full of still legal tender?",
+    "authorUrl": null
+  },
+  {
+    "text": "Trust me, at least you don't have to deal with THAC0",
+    "authorUrl": null
+  },
+  {
+    "text": "Generally, when reanimating the dead, it's polite to ask the dead first if they want to come back.",
+    "authorUrl": null
+  },
+  {
+    "text": "Mimic paranoia never ends well. Eventually the entire dungeon is a giant mimic.",
+    "authorUrl": null
+  },
+  {
+    "text": "Ratfolk of Medium Size? I don't think they exist.",
+    "authorUrl": null
+  },
+  {
+    "text": "Try challenging people to a duel to first blood rather than the death!",
+    "authorUrl": null
+  },
+  {
+    "text": "Have you ever considered peaceful negotiations?",
+    "authorUrl": null
+  },
+  {
+    "text": "Crystaline Memories is a spell in which you RIP OUT A STONE OUT OF SOMEONE'S BRAIN. Wizards.",
+    "authorUrl": null
+  },
+  {
+    "text": "Beeswax is excellent both for disabling traps and for making earplugs to defend against sound-based effects.",
+    "authorUrl": null
+  },
+  {
+    "text": "Always carry around a bit of Brown Mold in a small tin can. With a standard-issue flint and steel, you have instant air conditioning.",
+    "authorUrl": null
+  },
+  {
+    "text": "Illusions? How quaint. Before I destroy you, make one that looks like a really big goldfish—like as big as me! - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Hmm. That's too big. Goodbye! - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I need the biggest seed bell you have... No, that's too big. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Never rely on magic items. They're so fickle. First they work, and then they don't. On, off, on, off - in the blink of my eye. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "What's that, Sylgar? No. Not yet, my fishy friend. They just got here. Perhaps after we chat a bit. I find a little conversation at the beginning helps digestion. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "You know one of the great benefits of living underground? No weather. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Music is stupid. Wait. I changed my mind. Music is fun. Play more music. No, I was right the first time. Music is stupid. But I won't maim you after all, in case I change my mind again. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Speak up! It's really hard to hear you over the screaming. Nope. It's no use. I'll have to stop the screaming. Disintegrations all around, then. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I don't understand the attraction of gods. Why would anyone worship anything other than me? - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I've got a minion that forges things. An ink-stained little twerp with excellent penmanship. So how do the hammers and fire help the process? Wouldn't the paper get burned? Oh, the fire must be for the wax seals! - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I guess if you can't disintegrate them or eat them, burying dead bodies makes as much sense as anything else. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I've always liked druids, because they are made of natural ingredients. And I believe that everyone should have such a healthy diet. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I don't dream because I don't sleep. I'm always awake so no one can ever sneak up on me. If I dreamed, they would be bigger dreams than yours, though, because my head is bigger. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "If I could turn into something else, I wouldn't. Because everything else is inferior to me. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Sticks and stones may break my bones, but swords will never hurt me — as long as I stay really high and shoot down at an angle. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Arrows are the worst. They go much farther than eye rays. That's why I stay indoors all the time. Besides, the sky is totally overrated. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "So there are different names for different sorts of people who swing swords? Why? Let me try: big sword swinger and tiny sword swinger. No, that sounds like it's the size of the sword that matters. How about: big meat bag with a sword and little meat bag with a sword! - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I bet I could be a monk if I wanted. What? Why are you laughing? - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Why did the samurai cross the road? … Now you say “Why?” … Okay, here's the joke part: I kensei. Get it? What? Why aren't you laughing? The joke is solid gold, and my delivery was perfect. Maybe you didn't get it because you're stupid. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "So you have this soul, but you can't see it or touch it. And when you die, this invisible thing leaves your body and goes to a place you can't see. And you people think I'm crazy? - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Living up to an oath? That sounds ridiculous. Why would anyone ever do that? There's nothing wrong with making promises, but only suckers keep them. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Conquest sounds cool. Do you have to leave your house for that? Because I've got a fish named Sylgar, and I can't be away for too long or he gets sad. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Redemption. So you feel bad about having done something, and then you have to do something to feel better? Why don't you just kill and eat someone? That always makes me feel better. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "I'm a monster. Are you going to try to kill me? Didn't think so. Go kill some goblins or something. On second thought, goblins aren't monsters — they're people. So maybe you should call yourself a people killer. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "So you sneak around in the dark? You know most everything but humans can see in the dark, right? We all see you. Tiptoeing doesn't turn you invisible. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Thieves are the worst. I hate anyone that handles my stuff when I'm not looking, especially if they don't put it back where they found it. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "What's a swashbuckler? Do you swash buckles or buckle swashes? You can't tell me you don't think that word is funny. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Why do so many celestial things have bird wings and infernal things have bat wings? It seems arbitrary. There should be a bat angel! - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "Sometimes I disintegrate my shadow when I see it, because I think it's a different beholder. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "What is it with people and the weather? It's just the sky weeping and shouting because it's so far away from me. - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "So you got your powers by making a contract with something? Is it in writing, perchance? Well, never mind. Just tell me this: Can I get your powers by eating you? - Xanathar",
+    "authorUrl": null
+  },
+  {
+    "text": "So why can't people who use magic do it all the time? I can disintegrate things whenever I want. Like now. And now. And now. And now … Hey, where'd everybody go - Xanathar?",
+    "authorUrl": null
+  }
+]

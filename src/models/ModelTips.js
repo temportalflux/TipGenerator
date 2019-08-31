@@ -15,4 +15,8 @@ module.exports = {
         allowNull: false,
         unique: true,
     },
+    authorUrl: {
+        type: Sql.STRING,
+        allowNull: false,
+    },
 };
