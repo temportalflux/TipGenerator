@@ -17,7 +17,7 @@ module.exports = {
 
 		await argv.application.database.at('usage').destroy(
 			Utils.Sql.createSimpleOptions({
-				guild: argv.message.guild,
+				guild: argv.message.guild.id,
 				assetType: Model.getTableName(),
 			})
 		);

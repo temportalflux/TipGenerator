@@ -2,7 +2,7 @@ const Sql = require('sequelize');
 
 module.exports = {
 	guild: {
-		type: Sql.BIGINT,
+		type: Sql.STRING,
 		allowNull: false,
 	},
     status: {
@@ -12,15 +12,13 @@ module.exports = {
     name: {
         type: Sql.TEXT,
         allowNull: false,
-        unique: true,
     },
     url: {
         type: Sql.STRING,
         allowNull: false,
-        unique: true,
     },
     authorUrl: {
         type: Sql.STRING,
-        allowNull: false,
+        allowNull: true,
     },
 };

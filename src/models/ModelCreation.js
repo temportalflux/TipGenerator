@@ -2,7 +2,7 @@ const Sql = require('sequelize');
 
 module.exports = {
 	guild: {
-		type: Sql.BIGINT,
+		type: Sql.STRING,
 		allowNull: false,
 	},
 };

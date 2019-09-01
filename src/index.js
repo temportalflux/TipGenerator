@@ -1,10 +1,10 @@
 const path = require('path');
 const lodash = require('lodash');
+const fetch = require('node-fetch');
 
 const DBL = require('discordbot-lib');
 const Secrets = require('../secrets.json');
 const Models = require('./models/index.js');
-const RemoteFile = require('./RemoteFile.js');
 
 require('canvas').registerFont('./assets/dungeon.ttf', { family: 'DnD' });
 
@@ -14,18 +14,20 @@ class TipGenerator extends DBL.Application
 	constructor()
 	{
 		super({
-			applicationName: 'tipgenerator',
+			applicationName: 'TipGenerator',
 			discordToken: Secrets.token,
 			commands: {
 				prefix: 'dndtip',
 				directory: path.join(__dirname, 'commands'),
 			},
 			databaseModels: Models,
+			databaseLogging: false,
 		});
+		this.generateTipScreen = require('./generator.js');
 	}
 
 	// Overriden from Application
-	setupDatabase()
+	async setupDatabase()
 	{
 		this.database.models.usage.belongsTo(this.database.models.creation);
 		this.database.models.usage.belongsTo(this.database.models.tip);
@@ -35,8 +37,30 @@ class TipGenerator extends DBL.Application
 		this.database.models.creation.belongsTo(this.database.models.background);
 	}
 
+	async onDatabaseInit()
+	{
+		/*
+		try
+		{
+			await this.database.db.queryInterface.addConstraint(
+				'tips', ['guild', 'text'], { type: 'unique' }
+			);
+			await this.database.db.queryInterface.addConstraint(
+				'backgrounds', ['guild', 'name'], { type: 'unique' }
+			);
+			await this.database.db.queryInterface.addConstraint(
+				'backgrounds', ['guild', 'url'], { type: 'unique' }
+			);	
+		}
+		catch(e)
+		{
+			console.error(e);
+		}
+		//*/
+	}
+
 	// Overriden from Application
-	onDatabaseReady()
+	async onDatabaseReady()
 	{
 		lodash.assignIn(this, lodash.toPairs(this.database.models).reduce((accum, [key, model]) =>
 		{
@@ -46,55 +70,106 @@ class TipGenerator extends DBL.Application
 			)] = model;
 			return accum;
 		}, {}));
-
-		this.initRemoteFiles();
 	}
 
-	async initRemoteFiles()
+	// Overriden from Application
+	async onBotReady(client)
+	{
+		for (const [guildId, guild] of lodash.toPairs(client.guilds))
+		{
+			if (!guild.available || guild.deleted) continue;
+			console.log(`Fetching approved data for "${guild.name}"#${guild.id}.`)
+			await this.initRemoteFiles(guild.id);
+		}
+
+		await this.checkForAutogen();
+		this.autogenTimer = setInterval(this.checkForAutogen.bind(this), 1000 * 60 * 30);
+	}
+
+	async initRemoteFiles(guildId)
 	{
 		const gitAssets = 'https://raw.githubusercontent.com/temportalflux/TipGenerator/master/assets';
-		this.remoteFiles = {
-			tip: new RemoteFile(`${gitAssets}/tips.json`),
-			background: new RemoteFile(`${gitAssets}/backgrounds.json`),
-		};
-		await this.fetchRemoteFiles();
+		await this.loadRemoteData('tip', guildId,
+			{
+				url: `${gitAssets}/tips.json`,
+				fields: ['text', 'authorUrl'],
+				filterOn: ['guild', 'text'],
+			}
+		);
+		await this.loadRemoteData('background', guildId,
+			{
+				url: `${gitAssets}/backgrounds.json`,
+				fields: ['name', 'url', 'authorUrl'],
+				filterOn: ['guild', 'name', 'url'],
+			}
+		);
 	}
 
-	async parseRemoteFile(remoteFile)
+	async loadRemoteData(modelKey, guildId, options)
 	{
+		const result = await fetch(options.url, { method: 'GET' });
+		const approvedData = await result.json();
 		try
 		{
-			const content = await remoteFile.get();
-			return JSON.parse(content);
+			await this.database.importWithFilter(
+				modelKey,
+				approvedData.reduce(
+					(accum, entry) => accum.concat(
+						({ ...entry, guild: guildId, status: 'approved', })
+					),
+					[]
+				),
+				(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, options.filterOn)),
+				(entry) => entry
+			);
 		}
-		catch (err)
+		catch (e)
 		{
-			console.error('Failed to get remote file:', err);
+			console.error(e);
 		}
 	}
 
-	async loadRemoteData(modelKey, approvedData, valueToEntry, findParamsForEntry)
+	increaseDateUntitItIsInTheFuture(startDate, frequency, now)
 	{
-		if (approvedData === undefined) return;
-		const entries = approvedData.reduce((accum, entry) =>
+		while (startDate < now)
 		{
-			return accum.concat(valueToEntry('approved', entry));
-		}, []);
-		await this.database.importWithFilter(modelKey, entries, findParamsForEntry, (entry) => entry);
+			startDate = new Date(startDate.getTime() + frequency);
+		}
+		return startDate;
 	}
 
-	async fetchRemoteFiles(guildId)
+	async checkForAutogen()
 	{
-		await this.loadRemoteData('tip',
-			await this.parseRemoteFile(this.remoteFiles.tip),
-			(status, entry) => ({ ...entry, guild: guildId, status: status, }),
-			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'text']))
-		);
-		await this.loadRemoteData('background',
-			await this.parseRemoteFile(this.remoteFiles.background),
-			(status, entry) => ({ ...entry, guild: guildId, status: status, }),
-			(entry) => DBL.Utils.Sql.createWhereFilter(lodash.pick(entry, ['guild', 'name', 'url']))
-		);
+		console.log("Checking autogen schedule...");
+		const now = new Date();
+		const schedules = await this.database.at('autogen').findAll();
+		for (const schedule of schedules)
+		{
+			const startDate = new Date(schedule.startDate);
+			// Don't process if the schedule hasnt started yet
+			if (now < startDate)
+			{
+				console.log(`${schedule.guild} hasnt started their schedule yet. ${now} < ${startDate}`);
+				continue;
+			}
+
+			const nextUpdate = new Date(schedule.nextGeneration);
+			if (nextUpdate < now)
+			{
+				const guild = this.bot.client.guilds.get(schedule.guild);
+				const channel = guild.channels.get(schedule.channel);
+				console.log(`Generating tip screen for guild "${guild.name}"#${guild.id} in channel <@${channel.id}>.`);
+				await this.generateTipScreen(guild, this, channel, true);
+				await schedule.update({
+					nextGeneration: this.increaseDateUntitItIsInTheFuture(nextUpdate, schedule.frequency, now)
+				});
+			}
+			else
+			{
+				console.log(`Skipping ${schedule.guild}, ${nextUpdate} >= ${now}`);
+			}
+
+		}
 	}
 
 }

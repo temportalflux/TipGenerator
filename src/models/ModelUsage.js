@@ -2,11 +2,11 @@ const Sql = require('sequelize');
 
 module.exports = {
 	guild: {
-		type: Sql.BIGINT,
+		type: Sql.STRING,
 		allowNull: false,
 	},
-    assetType: {
-        type: Sql.ENUM('tip', 'background'),
-        allowNull: false,
-    },
+	assetType: {
+		type: Sql.ENUM('tip', 'background'),
+		allowNull: false,
+	},
 };
