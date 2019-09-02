@@ -7,3 +7,4 @@ tipgenerator.sqlite
 *.db
 *.lnk
 secrets.json
+src/daemon

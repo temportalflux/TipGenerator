@@ -11,7 +11,7 @@ require('canvas').registerFont('./assets/dungeon.ttf', { family: 'DnD' });
 class TipGenerator extends DBL.Application
 {
 
-	constructor()
+	constructor(withService)
 	{
 		super({
 			applicationName: 'TipGenerator',
@@ -22,6 +22,7 @@ class TipGenerator extends DBL.Application
 			},
 			databaseModels: Models,
 			databaseLogging: false,
+			logger: withService ? require('./logger.js') : undefined,
 		});
 		this.generateTipScreen = require('./generator.js');
 	}
@@ -78,7 +79,7 @@ class TipGenerator extends DBL.Application
 		for (const [guildId, guild] of lodash.toPairs(client.guilds))
 		{
 			if (!guild.available || guild.deleted) continue;
-			console.log(`Fetching approved data for "${guild.name}"#${guild.id}.`)
+			this.logger.info(`Fetching approved data for "${guild.name}"#${guild.id}.`)
 			await this.initRemoteFiles(guild.id);
 		}
 
@@ -125,7 +126,7 @@ class TipGenerator extends DBL.Application
 		}
 		catch (e)
 		{
-			console.error(e);
+			this.logger.error(e);
 		}
 	}
 
@@ -140,7 +141,7 @@ class TipGenerator extends DBL.Application
 
 	async checkForAutogen()
 	{
-		console.log("Checking autogen schedule...");
+		this.logger.info("Checking autogen schedule...");
 		const now = new Date();
 		const schedules = await this.database.at('autogen').findAll();
 		for (const schedule of schedules)
@@ -149,7 +150,7 @@ class TipGenerator extends DBL.Application
 			// Don't process if the schedule hasnt started yet
 			if (now < startDate)
 			{
-				console.log(`${schedule.guild} hasnt started their schedule yet. ${now} < ${startDate}`);
+				this.logger.info(`${schedule.guild} hasnt started their schedule yet. ${now} < ${startDate}`);
 				continue;
 			}
 
@@ -158,7 +159,7 @@ class TipGenerator extends DBL.Application
 			{
 				const guild = this.bot.client.guilds.get(schedule.guild);
 				const channel = guild.channels.get(schedule.channel);
-				console.log(`Generating tip screen for guild "${guild.name}"#${guild.id} in channel <@${channel.id}>.`);
+				this.logger.info(`Generating tip screen for guild "${guild.name}"#${guild.id} in channel <@${channel.id}>.`);
 				await this.generateTipScreen(guild, this, channel, true);
 				await schedule.update({
 					nextGeneration: this.increaseDateUntitItIsInTheFuture(nextUpdate, schedule.frequency, now)
@@ -166,7 +167,7 @@ class TipGenerator extends DBL.Application
 			}
 			else
 			{
-				console.log(`Skipping ${schedule.guild}, ${nextUpdate} >= ${now}`);
+				this.logger.info(`Skipping ${schedule.guild}, ${nextUpdate} >= ${now}`);
 			}
 
 		}
@@ -174,4 +175,4 @@ class TipGenerator extends DBL.Application
 
 }
 
-new TipGenerator();
+module.exports = TipGenerator;

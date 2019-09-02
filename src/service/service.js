@@ -1,0 +1,1 @@
+module.exports = require('discordbot-lib').Service.CreateWindowsService(require('../../package.json'), require('path').join(__dirname, '../prod.js'));

@@ -1,24 +1,27 @@
 {
 	"name": "tipgenerator",
+	"serviceName": "DiscordBot-TipGenerator",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A DiscordBot for gathering tips and generating Loading Screens.",
+	"author": "temportalflux",
+	"license": "ISC",
+	"repository": "temportalflux/TipGenerator",
 	"main": "index.js",
 	"dependencies": {
 		"canvas": "^2.6.0",
 		"discordbot-lib": "github:temportalflux/discordbot-lib",
 		"lodash": "^4.17.15",
 		"node-fetch": "^2.6.0",
+		"node-windows": "^0.1.14",
 		"nodemon": "^1.19.1",
-		"request": "^2.88.0",
-		"rimraf": "^3.0.0",
 		"shortid": "^2.2.14"
 	},
 	"devDependencies": {},
 	"scripts": {
-		"debug": "npx nodemon --inspect ./src/index.js",
+		"debug": "npx nodemon --inspect ./src/debug.js",
 		"inviteBot": "node ./inviteBot.js ./secrets.json",
-		"inspect": "node ./inspect.js"
-	},
-	"author": "temportalflux",
-	"license": "ISC"
+		"inspect": "node ./inspect.js",
+		"installService": "node ./src/service/install.js",
+		"uninstallService": "node ./src/service/uninstall.js"
+	}
 }
