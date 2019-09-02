@@ -22,7 +22,9 @@ class TipGenerator extends DBL.Application
 			},
 			databaseModels: Models,
 			databaseLogging: false,
-			logger: withService ? require('./logger.js') : undefined,
+			logger: withService
+				? DBL.Service.Logger(require('../package.json').serviceName)
+				: undefined,
 		});
 		this.generateTipScreen = require('./generator.js');
 	}
@@ -76,6 +78,8 @@ class TipGenerator extends DBL.Application
 	// Overriden from Application
 	async onBotReady(client)
 	{
+		bot.on('removedFromGuild', this.onRemovedFromGuild.bind(this));
+
 		for (const [guildId, guild] of lodash.toPairs(client.guilds))
 		{
 			if (!guild.available || guild.deleted) continue;
@@ -85,6 +89,16 @@ class TipGenerator extends DBL.Application
 
 		await this.checkForAutogen();
 		this.autogenTimer = setInterval(this.checkForAutogen.bind(this), 1000 * 60 * 30);
+	}
+
+	async onRemovedFromGuild(guild)
+	{
+		for (const modelKey of lodash.keys(this.database.models))
+		{
+			await this.database.at(modelKey).destroy(
+				DBL.Utils.Sql.createSimpleOptions({ guild: guild.id })
+			);
+		}
 	}
 
 	async initRemoteFiles(guildId)
