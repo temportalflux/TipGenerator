@@ -75,24 +75,55 @@ class TipGenerator extends DBL.Application
 		}, {}));
 	}
 
+	// Override from DBL.Application
+	onBotPrelogin(bot)
+	{
+		super.onBotPrelogin(bot);
+		bot.on('removedFromGuild', this.onRemovedFromGuild.bind(this));
+		bot.on('joinedGuild', this.onJoinedGuild.bind(this));
+		bot.on('leftGuild', this.onLeftGuild.bind(this));
+	}
+
 	// Overriden from Application
 	async onBotReady(client)
 	{
-		bot.on('removedFromGuild', this.onRemovedFromGuild.bind(this));
-
 		for (const [guildId, guild] of lodash.toPairs(client.guilds))
 		{
 			if (!guild.available || guild.deleted) continue;
-			this.logger.info(`Fetching approved data for "${guild.name}"#${guild.id}.`)
-			await this.initRemoteFiles(guild.id);
+			await this.addGuildData(guild);
 		}
 
 		await this.checkForAutogen();
 		this.autogenTimer = setInterval(this.checkForAutogen.bind(this), 1000 * 60 * 30);
 	}
 
+	async onJoinedGuild(guild)
+	{
+		this.logger.info(`Joined guild "${guild.name}"#${guild.id}.`);
+		await this.addGuildData(guild);
+	}
+
+	async onLeftGuild(guild)
+	{
+		this.logger.info(`Left guild "${guild.name}"#${guild.id}.`);
+		await this.removeGuildData(guild);
+	}
+
 	async onRemovedFromGuild(guild)
 	{
+		this.logger.info(`Removed from guild "${guild.name}"#${guild.id}.`);
+		await this.removeGuildData(guild);
+	}
+
+	async addGuildData(guild)
+	{
+		this.logger.info(`Fetching approved data for "${guild.name}"#${guild.id}.`);
+		await this.initRemoteFiles(guild.id);
+	}
+
+	async removeGuildData(guild)
+	{
+		this.logger.info(`Purging data for "${guild.name}"#${guild.id}.`);
 		for (const modelKey of lodash.keys(this.database.models))
 		{
 			await this.database.at(modelKey).destroy(
