@@ -12,6 +12,21 @@ module.exports = {
 				guild: argv.message.guild.id, status: 'approved'
 			})
 		);
-		await argv.message.reply(Utils.Math.pickRandom(tips).get('text'));
+		const tip = Utils.Math.pickRandom(tips);
+		await argv.message.reply(
+			tip.get('text'),
+			{
+				embed: {
+					title: `Tip id #${tip.hash}`,
+					fields: [
+						{
+							name: 'Tip Source',
+							value: tip.authorUrl ? tip.authorUrl : 'Unknown Source',
+							inline: true,
+						},
+					],
+				},
+			}
+		);
 	},
 };

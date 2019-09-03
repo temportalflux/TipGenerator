@@ -1,8 +1,8 @@
 const Sql = require('sequelize');
-const shortid = require('shortid');
 // https://github.com/Automattic/node-canvas
 const { createCanvas, loadImage } = require('canvas');
 const { Utils } = require('discordbot-lib');
+const path = require('path');
 
 /*
 	takes a string and a maxWidth and splits the text into lines
@@ -181,10 +181,7 @@ async function generateTipImageAttachment(backgroundUrl, tipText)
 		drawText(ctx, canvas, canvasMargin, fontSize, posX, canvas.height - canvasMargin, txtArray);
 	}
 
-	return {
-		attachment: canvas.createJPEGStream(),
-		name: `${shortid.generate()}.jpg`,
-	};
+	return canvas.createJPEGStream();
 }
 
 async function getAvailable(Usage, Model, modelToId)
@@ -240,17 +237,31 @@ module.exports = async (guild, application, outputChannel, trackUsage) =>
 	const background = Utils.Math.pickRandom(backgrounds);
 	const tip = Utils.Math.pickRandom(tips);
 
-	await outputChannel.send(
-		tip.get('text'),
-		{
-			files: [
-				await generateTipImageAttachment(
-					background.get('url'),
-					tip.get('text')
-				)
-			]
-		}
-	);
+	const attachmentName = `${path.basename(background.name, path.extname(background.name))}_${tip.hash}.jpg`;
+
+	await outputChannel.send(tip.get('text'), {
+		embed: {
+			title: attachmentName,
+			fields: [
+				{
+					name: 'Tip Source',
+					value: tip.authorUrl ? tip.authorUrl : 'Unknown Source',
+					inline: true,
+				},
+				{
+					name: 'Background Source',
+					value: background.authorUrl ? background.authorUrl : 'Unknown Source',
+					inline: true,
+				},
+			],
+		},
+		files: [
+			{
+				name: attachmentName,
+				attachment: await generateTipImageAttachment(background.get('url'), tip.get('text')),
+			}
+		]
+	});
 
 	const Creation = application.Creation;
 	const creation = await Creation.create({

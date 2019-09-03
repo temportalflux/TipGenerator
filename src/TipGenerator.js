@@ -87,12 +87,6 @@ class TipGenerator extends DBL.Application
 	// Overriden from Application
 	async onBotReady(client)
 	{
-		for (const [guildId, guild] of lodash.toPairs(client.guilds))
-		{
-			if (!guild.available || guild.deleted) continue;
-			await this.addGuildData(guild);
-		}
-
 		await this.checkForAutogen();
 		this.autogenTimer = setInterval(this.checkForAutogen.bind(this), 1000 * 60 * 30);
 	}
