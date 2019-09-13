@@ -2,7 +2,7 @@ const lodash = require('lodash');
 const { Utils } = require('discordbot-lib');
 
 module.exports = {
-	command: 'setAutogen <isEnabled> [startDate] [days] [channel]',
+	command: 'setAutogen <enabled> [startDate] [days] [channel]',
 	desc: 'Toggles the autogen schedule for this server',
 	builder: {
 		enabled: {
@@ -28,7 +28,7 @@ module.exports = {
 	{
 		if (!argv.message.guild.available) { return; }
 
-		argv.isEnabled = argv.isEnabled === 'enable';
+		argv.isEnabled = argv.enabled === 'enable';
 
 		if (argv.isEnabled && (!argv.startDate || !argv.days || !argv.channel))
 		{
@@ -49,12 +49,19 @@ module.exports = {
 			const frequency = argv.days * 24 * 60 * 60 * 1000; // day to ms
 			const channelString = argv.channel;
 
-			const [channelId, channel] = lodash.find(
+			const result = lodash.find(
 				lodash.toPairs(argv.message.guild.channels),
 				([id, channel]) => {
 					return channel.type === 'text' && channel.name === channelString;
 				}
 			);
+			if (!result)
+			{
+				await argv.message.reply(`Could not understand the parameters. Please make sure your date/time is wrapped in a string.`);
+				return;
+			}
+
+			const [channelId, channel] = result;
 
 			if (!channelId)
 			{

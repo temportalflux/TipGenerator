@@ -13,8 +13,8 @@
 		"lodash": "^4.17.15",
 		"node-fetch": "^2.6.0",
 		"node-windows": "^0.1.14",
-		"nodemon": "^1.19.1",
-		"shortid": "^2.2.14"
+		"nodemon": "^1.19.2",
+		"shortid": "^2.2.15"
 	},
 	"devDependencies": {},
 	"scripts": {
