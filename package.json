@@ -16,7 +16,9 @@
 		"nodemon": "^1.19.2",
 		"shortid": "^2.2.15"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+		"open": "^6.4.0"
+	},
 	"scripts": {
 		"debug": "npx nodemon --inspect ./src/debug.js",
 		"inviteBot": "node ./node_modules/discordbot-lib/inviteBot.js ./secrets.json",

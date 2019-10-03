@@ -87,8 +87,13 @@ class TipGenerator extends DBL.Application
 	// Overriden from Application
 	async onBotReady(client)
 	{
+		console.log('Tip generator ready and connected to client', lodash.cloneDeep(client));
 		await this.checkForAutogen();
-		this.autogenTimer = setInterval(this.checkForAutogen.bind(this), 1000 * 60 * 30);
+	}
+
+	enqueueNextAutogenCheck()
+	{
+		this.autogenTimer = setTimeout(this.checkForAutogen.bind(this), 1000 * 60);
 	}
 
 	async onJoinedGuild(guild)
@@ -180,7 +185,6 @@ class TipGenerator extends DBL.Application
 
 	async checkForAutogen()
 	{
-		this.logger.info("Checking autogen schedule...");
 		const now = new Date();
 		const schedules = await this.database.at('autogen').findAll();
 		for (const schedule of schedules)
@@ -210,6 +214,8 @@ class TipGenerator extends DBL.Application
 			}
 
 		}
+
+		this.enqueueNextAutogenCheck();
 	}
 
 }
