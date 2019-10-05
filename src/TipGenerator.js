@@ -22,6 +22,7 @@ class TipGenerator extends DBL.Application
 			},
 			databaseModels: Models,
 			databaseLogging: false,
+			withService: withService,
 			logger: withService
 				? DBL.Service.Logger(require('../package.json').serviceName)
 				: undefined,
@@ -87,42 +88,55 @@ class TipGenerator extends DBL.Application
 	// Overriden from Application
 	async onBotReady(client)
 	{
-		console.log('Tip generator ready and connected to client', lodash.cloneDeep(client));
+		if (this.withService)
+			await this.logger.info(`${this.applicationName} ready and connected to client`);
+		else
+			console.log(`${this.applicationName} ready and connected to client`, lodash.cloneDeep(client));
+
 		await this.checkForAutogen();
 	}
 
 	enqueueNextAutogenCheck()
 	{
-		this.autogenTimer = setTimeout(this.checkForAutogen.bind(this), 1000 * 60);
+		if (!this.autogenTimer)
+		{
+			// Try to get as close to the next minute as possible
+			const now = new Date();
+			const secondsTillNextMinute = -now.getSeconds();
+			const msTillNextCheck = 1000 * (60 + secondsTillNextMinute);
+			this.autogenTimer = setTimeout(this.checkForAutogen.bind(this), msTillNextCheck);
+			return msTillNextCheck;
+		}
+		return -1;
 	}
 
 	async onJoinedGuild(guild)
 	{
-		this.logger.info(`Joined guild "${guild.name}"#${guild.id}.`);
+		await this.logger.info(`Joined guild "${guild.name}"#${guild.id}.`);
 		await this.addGuildData(guild);
 	}
 
 	async onLeftGuild(guild)
 	{
-		this.logger.info(`Left guild "${guild.name}"#${guild.id}.`);
+		await this.logger.info(`Left guild "${guild.name}"#${guild.id}.`);
 		await this.removeGuildData(guild);
 	}
 
 	async onRemovedFromGuild(guild)
 	{
-		this.logger.info(`Removed from guild "${guild.name}"#${guild.id}.`);
+		await this.logger.info(`Removed from guild "${guild.name}"#${guild.id}.`);
 		await this.removeGuildData(guild);
 	}
 
 	async addGuildData(guild)
 	{
-		this.logger.info(`Fetching approved data for "${guild.name}"#${guild.id}.`);
+		await this.logger.info(`Fetching approved data for "${guild.name}"#${guild.id}.`);
 		await this.initRemoteFiles(guild.id);
 	}
 
 	async removeGuildData(guild)
 	{
-		this.logger.info(`Purging data for "${guild.name}"#${guild.id}.`);
+		await this.logger.info(`Purging data for "${guild.name}"#${guild.id}.`);
 		for (const modelKey of lodash.keys(this.database.models))
 		{
 			await this.database.at(modelKey).destroy(
@@ -185,37 +199,70 @@ class TipGenerator extends DBL.Application
 
 	async checkForAutogen()
 	{
+		// Disable the autogen timer
+		if (this.autogenTimer)
+		{
+			clearTimeout(this.autogenTimer);
+			this.autogenTimer = null;
+		}
+
+		if (this.withService)
+			await this.logger.info(`Checking the autogeneration schedule...`);
+		else
+			console.log(`Checking the autogeneration schedule...`);
+
 		const now = new Date();
 		const schedules = await this.database.at('autogen').findAll();
-		for (const schedule of schedules)
+
+		/*
+		await this.logger.info(`Fetched all autogeneration information from database. Found ${schedules.length} schedules. ${JSON.stringify(schedules)}`);
+		for (var [key, value] of this.bot.client.guilds)
 		{
+			await this.logger.info(`Guild: ${key} (${typeof key}) => ${value} (${typeof value})`);
+		}
+		//*/
+
+		for (let index = 0; index < schedules.length; index++)
+		{
+			const schedule = schedules[index];
+			//await this.logger.info(`Analyzing schedule ${index}, ${JSON.stringify(schedule)} guildExistsInMap:${this.bot.client.guilds.has(schedule.guild)}`);
+
+			const guild = this.bot.client.guilds.get(schedule.guild);
+			//await this.logger.info(`Schedule ${index} | guild:${guild} (${typeof guild}) name:${guild.name} id:${guild.id}`);
+			const channel = guild.channels.get(schedule.channel);
+			//await this.logger.info(`Schedule ${index} | channel:${channel} (${typeof channel}) name:${channel.name} id:${channel.id}`);
+
 			const startDate = new Date(schedule.startDate);
 			// Don't process if the schedule hasnt started yet
 			if (now < startDate)
 			{
-				this.logger.info(`${schedule.guild} hasnt started their schedule yet. ${now} < ${startDate}`);
+				await this.logger.info(`guild-channel ${guild.name}-${channel.name} hasnt started their schedule yet. ${now.toString()} < ${startDate.toString()}`);
 				continue;
 			}
 
 			const nextUpdate = new Date(schedule.nextGeneration);
 			if (nextUpdate < now)
 			{
-				const guild = this.bot.client.guilds.get(schedule.guild);
-				const channel = guild.channels.get(schedule.channel);
-				this.logger.info(`Generating tip screen for guild "${guild.name}"#${guild.id} in channel <@${channel.id}>.`);
 				await this.generateTipScreen(guild, this, channel, true);
 				await schedule.update({
 					nextGeneration: this.increaseDateUntitItIsInTheFuture(nextUpdate, schedule.frequency, now)
 				});
+				await this.logger.info(`Generated tip screen for guild-channel ${guild.name}-${channel.name}.`);
 			}
 			else
 			{
-				this.logger.info(`Skipping ${schedule.guild}, ${nextUpdate} >= ${now}`);
+				await this.logger.info(`Skipping guild-channel ${guild.name}-${channel.name}, ${nextUpdate.toString()} >= ${now.toString()}`);
 			}
 
 		}
 
-		this.enqueueNextAutogenCheck();
+		const msTillNextCheck = this.enqueueNextAutogenCheck();
+		var finishedLog = 'Finished checking the autogen schedule.';
+		if (msTillNextCheck >= 0)
+		{
+			finishedLog += ` Next autogen check scheduled for ${msTillNextCheck / 1000} seconds from now.`;
+		}
+		await this.logger.info(finishedLog);
 	}
 
 }
