@@ -216,7 +216,7 @@ async function getAvailable(Usage, Model, modelToId)
 	return availableModels;
 }
 
-module.exports = async (guild, application, outputChannel, trackUsage) =>
+module.exports = async (guild, application, outputChannel, trackUsage, otherMessageText='') =>
 {
 	if (!guild.available) { return; }
 
@@ -239,7 +239,7 @@ module.exports = async (guild, application, outputChannel, trackUsage) =>
 
 	const attachmentName = `${path.basename(background.name, path.extname(background.name))}_${tip.hash}.jpg`;
 
-	await outputChannel.send(tip.get('text'), {
+	await outputChannel.send(tip.get('text') + otherMessageText, {
 		embed: {
 			title: attachmentName,
 			fields: [

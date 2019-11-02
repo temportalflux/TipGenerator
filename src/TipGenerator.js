@@ -188,8 +188,9 @@ class TipGenerator extends DBL.Application
 		}
 	}
 
-	increaseDateUntitItIsInTheFuture(startDate, frequency, now)
+	increaseDateUntitItIsInTheFuture(startDate, days, now)
 	{
+		const frequency = days * 86400000;
 		while (startDate < now)
 		{
 			startDate = new Date(startDate.getTime() + frequency);
@@ -243,10 +244,16 @@ class TipGenerator extends DBL.Application
 			const nextUpdate = new Date(schedule.nextGeneration);
 			if (nextUpdate < now)
 			{
-				await this.generateTipScreen(guild, this, channel, true);
-				await schedule.update({
-					nextGeneration: this.increaseDateUntitItIsInTheFuture(nextUpdate, schedule.frequency, now)
-				});
+				const nextGenDateTime = this.increaseDateUntitItIsInTheFuture(nextUpdate, schedule.frequency, now);
+				const otherDebugText = '\nDEBUG INFO:'
+				+ `\nGeneration schedule started at: ${startDate.toString()}`
+				+ `\nNext generation was schedule at: ${nextUpdate.toString()}`
+				+ `\nGenerated at: ${now.toString()}`
+				+ `\nGeneration Frequency is: ${schedule.frequency} days`
+				+ `\nNext generation will be at: ${nextGenDateTime.toString()}`
+				;
+				await this.generateTipScreen(guild, this, channel, true, otherDebugText);
+				await schedule.update({ nextGeneration: nextGenDateTime });
 				await this.logger.info(`Generated tip screen for guild-channel ${guild.name}-${channel.name}.`);
 			}
 			else

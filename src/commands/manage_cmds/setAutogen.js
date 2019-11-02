@@ -46,7 +46,8 @@ module.exports = {
 		if (argv.isEnabled)
 		{
 			const startDate = new Date(argv.startDate);
-			const frequency = argv.days * 24 * 60 * 60 * 1000; // day to ms
+			// Storing frequency as ms is disabled due to loss of precision
+			const frequency = argv.days;// * 24 * 60 * 60 * 1000; // day to ms
 			const channelString = argv.channel;
 
 			const result = lodash.find(
