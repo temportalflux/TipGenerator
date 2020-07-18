@@ -10,7 +10,7 @@
 	"dependencies": {
 		"canvas": "^2.6.0",
 		"discordbot-lib": "github:temportalflux/discordbot-lib",
-		"lodash": "^4.17.15",
+		"lodash": "^4.17.19",
 		"node-fetch": "^2.6.0",
 		"node-windows": "^0.1.14",
 		"nodemon": "^1.19.4",
